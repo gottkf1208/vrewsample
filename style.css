@@ -574,3 +574,9 @@ ol.do li::before { content: counter(d); position: absolute; left: 14px; top: 12p
 .ba { margin-top: auto; }
 .dlcard h3 quoka-icon { margin-right: 6px; }
 .soon .box .faceline { padding-top: 10px; }
+
+/* v3: 영상 편집자 쿼카 그림 */
+.qk { display: inline-block; width: auto; flex: none; filter: drop-shadow(0 6px 8px rgba(9, 28, 76, .14)); }
+.foot .foot-qk { height: 40px; margin-left: -40px; margin-right: 4px; filter: none; }
+.cv-face { left: -64px; top: -70px; }
+.faceline .qk { align-self: flex-end; }

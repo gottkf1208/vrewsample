@@ -28,7 +28,7 @@ const take = html => `<div class="take"><span>${html}</span></div>`;
 // ───────── 브루 샘플러 본문 (문구는 copy.json → T) ─────────
 const path = (...xs) => `<span class="path">${xs.map(x => `<b>${x}</b>`).join('<i>›</i>')}</span>`;
 const mo = (file, cls) => `<video class="${cls}" data-src="${A}${file}" muted loop playsinline preload="none"></video>`;
-const face = (size, acc = 'headset', exp = 'smile') => `<quoka-face live follow expression="${exp}" accessory="${acc}" size="${size}" sleep-after="0" label="영상 만드는 쿼카"></quoka-face>`;
+const face = (size) => `<img class="qk" src="${A}quoka-editor.png" alt="영상 편집하는 쿼카" style="height:${Math.round(size * 1.5)}px">`;
 const icon = (name, size = 40) => `<quoka-icon name="${name}" size="${size}"></quoka-icon>`;
 const todo = (...keys) => `<ol class="do">${keys.map(k => `<li>${T[k]}</li>`).join('')}</ol>`;
 // 브루 창을 본뜬 견본: 화면에서 확인한 칸 이름만 쓴다
@@ -274,7 +274,7 @@ const firstOf = k => slides.findIndex(s => s.title.startsWith(k)) + 1;
 const rangeOf = g => { const ix = slides.map((s, i) => (s.group === g ? i + 1 : 0)).filter(Boolean); return `${ix[0]}–${ix[ix.length - 1]}`; };
 const fill = h => h.replace(/\{\{n\}\}/g, slides.length).replace(/\{\{r:(.+?)\}\}/g, (_, g) => rangeOf(g));
 stage.innerHTML = slides.map((s, n) => `<section class="slide ${s.cls}" data-n="${n + 1}">${fill(s.html).replace(/<img src="/g, '<img data-src="')}</section>`).join('') +
-  `<div class="bar"></div><div class="foot"><quoka-face live follow expression="smile" accessory="headset" size="34" sleep-after="0"></quoka-face><span class="where"></span><span class="grow"></span><button class="nav" data-prev title="이전">◀</button><span class="num"></span><button class="nav" data-next title="다음">▶</button><button class="btn ghost" data-toc>목차</button><button class="btn ghost" data-full>전체 화면</button></div><div class="toast"></div>`;
+  `<div class="bar"></div><div class="foot"><img class="qk foot-qk" src="assets/quoka-editor.png" alt=""><span class="where"></span><span class="grow"></span><button class="nav" data-prev title="이전">◀</button><span class="num"></span><button class="nav" data-next title="다음">▶</button><button class="btn ghost" data-toc>목차</button><button class="btn ghost" data-full>전체 화면</button></div><div class="toast"></div>`;
 const els = $$('.slide', stage);
 let now = 0;
 
