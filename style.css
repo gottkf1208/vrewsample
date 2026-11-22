@@ -484,3 +484,93 @@ h2 { font-weight: 700; }
 .bye img { width: 150px; filter: drop-shadow(0 8px 10px rgba(9, 28, 76, .2)); }
 .bye p { background: var(--lime-tint); border: 1px solid rgba(20, 161, 200, .18); border-radius: 16px 16px 16px 4px; padding: 12px 16px; margin-bottom: 46px; font-size: 16px; line-height: 24px; color: var(--text); }
 .bye p b { color: var(--lime); }
+
+/* ───────── v2: 홈페이지 키트 · 모션랩 표지 · 구체화한 단계 ───────── */
+:root { --qk-ink: var(--text); --qk-muted: var(--text-2); --qk-line: var(--line); --qk-surface: #fff; --qk-soft: var(--surface-3); --qk-accent: var(--brand); --qk-accent-soft: var(--lime-tint); --qk-mint: #48B096; }
+h2 { font-size: 44px; line-height: 54px; font-weight: 800; letter-spacing: -0.03em; }
+h2 em { color: var(--brand); }
+.card .name { text-transform: none; letter-spacing: -0.02em; }
+quoka-face, quoka-icon { display: inline-block; flex: none; vertical-align: middle; }
+.foot quoka-face { margin-left: -34px; margin-right: 2px; }
+
+.cover .wrap { grid-template-columns: 880px 1fr; gap: 28px; padding: 40px 56px 84px 36px; align-items: center; }
+.cv-left { display: flex; flex-direction: column; }
+.cv-left .lab { width: 880px; height: 495px; border: 0; background: var(--canvas); display: block; }
+.cv-left .cta { margin: 6px 0 0 50px; display: flex; gap: 10px; align-items: center; }
+.cv-left .btn.big { border-radius: 12px; }
+.cv-left .btn.ghost.big { box-shadow: none; }
+.cv-right { position: relative; display: flex; flex-direction: column; gap: 14px; }
+.cv-right .screen { display: block; border-radius: 20px; overflow: hidden; background: #101214; aspect-ratio: 16 / 9; border: 1px solid var(--line); box-shadow: 0 18px 17.5px rgba(0, 0, 0, .12); }
+.cv-right .screen video { width: 100%; height: 100%; object-fit: cover; }
+.cv-right .strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.cv-right .strip .media { aspect-ratio: 16 / 10; }
+.cv-right .strip .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 10px 7px; background: linear-gradient(transparent, rgba(0, 0, 0, .7)); color: #fff; font-size: 13px; font-weight: 600; }
+.cv-face { position: absolute; left: -46px; top: -46px; z-index: 3; filter: drop-shadow(0 6px 8px rgba(9, 28, 76, .18)); }
+
+.steps .n { display: flex; align-items: center; gap: 8px; }
+.tri { display: grid; grid-template-columns: 400px 1fr 400px; gap: 18px; flex: 1; min-height: 0; }
+.tri .side p, .split.wide .side p { font-size: 15.5px; line-height: 24px; }
+ol.do { list-style: none; counter-reset: d; display: flex; flex-direction: column; gap: 10px; }
+ol.do li { counter-increment: d; position: relative; padding: 12px 14px 12px 52px; background: var(--surface-3); border-radius: 12px; font-size: 15.5px; line-height: 24px; color: var(--text-2); }
+ol.do li b { color: var(--text); font-weight: 600; }
+ol.do li::before { content: counter(d); position: absolute; left: 14px; top: 12px; width: 26px; height: 26px; border-radius: 50%; background: var(--brand); color: #fff; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+.split.wide ol.do li { font-size: 16px; line-height: 25px; }
+.four.one { grid-template-columns: 1fr; gap: 8px; border-bottom: 0; padding: 0; }
+.four.one span { font-size: 15px; line-height: 23px; color: var(--text-2); background: var(--surface-3); border-radius: 10px; padding: 9px 12px; }
+
+.vp { background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 8px 20px rgba(0, 0, 0, .08); display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+.vp-top { display: flex; align-items: center; gap: 8px; height: 52px; padding: 0 18px; border-bottom: 1px solid var(--line); }
+.vp-top b { font-size: 17px; font-weight: 700; margin-right: 8px; }
+.vp-top span { font-size: 14px; font-weight: 600; color: var(--text-3); padding: 5px 12px; border-radius: 8px; }
+.vp-top span.on { background: var(--surface-3); color: var(--text); }
+.vp-top i { margin-left: auto; font-style: normal; font-size: 12px; color: var(--text-3); border: 1px dashed var(--line); border-radius: 6px; padding: 2px 8px; }
+.vp-row { padding: 12px 18px 0; }
+.vp-row label { display: block; font-size: 13px; font-weight: 600; color: var(--text-2); margin-bottom: 6px; }
+.vp-sel { display: flex; align-items: center; height: 40px; padding: 0 12px; border: 1px solid var(--lime-line); background: var(--lime-tint); border-radius: 8px; font-size: 15px; font-weight: 600; color: var(--lime); }
+.vp-sel em { font-style: normal; font-size: 11px; font-weight: 700; background: var(--brand); color: #fff; border-radius: 4px; padding: 1px 5px; margin-left: 8px; }
+.vp-ta { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-size: 13.5px; line-height: 21px; color: var(--text); min-height: 96px; }
+.vp-empty { font-size: 13.5px; color: var(--text-3); border: 1px dashed var(--line); border-radius: 8px; padding: 8px 12px; display: inline-block; }
+.vp-ref img { width: 64px; height: 84px; object-fit: cover; border-radius: 8px; border: 2px solid var(--brand); display: inline-block; vertical-align: middle; }
+.vp-hint { font-size: 13px; color: var(--text-2); margin-left: 10px; }
+.vp-refs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.vp-refs img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; border: 2px solid var(--brand); }
+.vp-opt { display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border: 1px solid var(--line); border-radius: 8px; font-size: 13.5px; font-weight: 500; margin-right: 6px; }
+.vp-foot { margin-top: auto; padding: 14px 18px 16px; display: flex; align-items: center; gap: 12px; }
+.vp-btn { display: inline-flex; align-items: center; height: 40px; padding: 0 18px; border-radius: 8px; background: var(--brand); color: #fff; font-size: 15px; font-weight: 600; }
+.vp-cr { font-size: 13px; color: var(--text-2); }
+
+.cmp { display: grid; grid-template-columns: 1fr 1fr 360px; gap: 16px; flex: 1; min-height: 0; }
+.cmp .card.tall2 { display: grid; grid-template-columns: 300px 1fr; }
+.cmp .card.tall2 .media { height: 100%; min-height: 0; }
+.cmp .card.tall2 .txt { padding: 18px 18px 16px; }
+.cmp .card .name { font-size: 22px; line-height: 28px; font-weight: 700; }
+.cmp .card .meta { font-size: 13px; margin-top: 2px; }
+.cmp .card .note { font-size: 15px; line-height: 23px; margin-top: 12px; color: var(--text-2); }
+.cmp .card .use { font-size: 14.5px; margin-top: 10px; font-weight: 600; }
+.faceline { margin-top: auto; display: flex; align-items: center; gap: 12px; }
+.faceline span { background: var(--lime-tint); border: 1px solid rgba(20, 161, 200, .18); border-radius: 14px 14px 14px 4px; padding: 9px 13px; font-size: 14.5px; line-height: 22px; color: var(--text); font-weight: 500; }
+.faceline.big span { font-size: 16px; line-height: 25px; padding: 12px 16px; }
+.stylelines { display: grid; grid-template-columns: repeat(8, 1fr); gap: 12px; margin-top: 4px; }
+.stylelines span { font-size: 12.5px; line-height: 19px; color: var(--text-2); }
+.styles .labels span { font-weight: 700; font-size: 16px; }
+
+.script.plan td { font-size: 16.5px; line-height: 26px; padding: 13px 10px; }
+.script td.s { width: 90px; text-align: right; color: var(--text-3); font-size: 14px; white-space: nowrap; }
+.layer3 { display: grid; grid-template-columns: 150px 28px 1fr 28px 1.6fr; gap: 10px; align-items: center; }
+.layer3 .thumb { position: relative; display: block; border-radius: 12px; overflow: hidden; }
+.layer3 .thumb img { width: 100%; display: block; }
+.layer3 .thumb:first-child img { aspect-ratio: 3 / 4; object-fit: cover; }
+.bgcard { border: 1px dashed var(--lime-line); background: var(--lime-tint); border-radius: 12px; padding: 16px 14px; display: flex; flex-direction: column; gap: 6px; text-align: center; }
+.bgcard b { font-size: 16px; color: var(--lime); }
+.bgcard span { font-size: 14px; line-height: 22px; color: var(--text-2); }
+.pp2 { font-size: 15.5px; line-height: 24px; color: var(--text-2); margin-top: 12px; }
+.pp2 b { color: var(--text); font-weight: 600; }
+.thumbs4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.thumbs4 .thumb { position: relative; display: block; border-radius: 8px; overflow: hidden; }
+.thumbs4 img { width: 100%; display: block; }
+.capdemo { position: relative; margin-top: auto; border-radius: 12px; overflow: hidden; }
+.capdemo img { width: 100%; display: block; aspect-ratio: 16 / 7; object-fit: cover; object-position: 50% 100%; }
+.plainpre { font: 16px/26px var(--body); white-space: pre-wrap; background: var(--surface-3); border-radius: 12px; padding: 14px 16px; color: var(--text); }
+.ba { margin-top: auto; }
+.dlcard h3 quoka-icon { margin-right: 6px; }
+.soon .box .faceline { padding-top: 10px; }
