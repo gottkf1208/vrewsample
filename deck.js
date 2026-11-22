@@ -28,7 +28,9 @@ const take = html => `<div class="take"><span>${html}</span></div>`;
 // ───────── 브루 샘플러 본문 (문구는 copy.json → T) ─────────
 const path = (...xs) => `<span class="path">${xs.map(x => `<b>${x}</b>`).join('<i>›</i>')}</span>`;
 const mo = (file, cls) => `<video class="${cls}" data-src="${A}${file}" muted loop playsinline preload="none"></video>`;
-const face = (size) => `<img class="qk" src="${A}quoka-editor.png" alt="영상 편집하는 쿼카" style="height:${Math.round(size * 1.5)}px">`;
+// 영상 편집자 쿼카: 홈페이지 키트의 얼굴(볼캡) + 키트 아이콘 방식으로 그린 슬레이트
+const SLATE = '<svg class="slate" viewBox="0 0 64 64" aria-hidden="true"><g class="arm"><rect x="7" y="13" width="50" height="11" rx="3.5" fill="#3A2F2A"/><path d="M15 13h8l-6 11h-8zM31 13h8l-6 11h-8zM47 13h8l-6 11h-8z" fill="#FFF5E8"/></g><rect x="7" y="24" width="50" height="33" rx="7" fill="#14A1C8"/><rect x="7" y="24" width="50" height="9" rx="3.5" fill="#3A2F2A"/><path d="M14 24h8l-5 9h-8zM30 24h8l-5 9h-8zM46 24h8l-5 9h-8z" fill="#FFF5E8"/><path d="M27.5 38.2a1.6 1.6 0 0 1 2.4-1.4l10 6a1.6 1.6 0 0 1 0 2.8l-10 6a1.6 1.6 0 0 1-2.4-1.4z" fill="#fff"/></svg>';
+const face = (size) => `<span class="edq" style="--s:${size}px" title="영상 편집하는 쿼카"><quoka-face live follow expression="happy" accessory="cap" size="${size}" sleep-after="0" label="영상 편집하는 쿼카"></quoka-face>${SLATE}</span>`;
 const icon = (name, size = 40) => `<quoka-icon name="${name}" size="${size}"></quoka-icon>`;
 const todo = (...keys) => `<ol class="do">${keys.map(k => `<li>${T[k]}</li>`).join('')}</ol>`;
 // 브루 창을 본뜬 견본: 화면에서 확인한 칸 이름만 쓴다
@@ -274,7 +276,7 @@ const firstOf = k => slides.findIndex(s => s.title.startsWith(k)) + 1;
 const rangeOf = g => { const ix = slides.map((s, i) => (s.group === g ? i + 1 : 0)).filter(Boolean); return `${ix[0]}–${ix[ix.length - 1]}`; };
 const fill = h => h.replace(/\{\{n\}\}/g, slides.length).replace(/\{\{r:(.+?)\}\}/g, (_, g) => rangeOf(g));
 stage.innerHTML = slides.map((s, n) => `<section class="slide ${s.cls}" data-n="${n + 1}">${fill(s.html).replace(/<img src="/g, '<img data-src="')}</section>`).join('') +
-  `<div class="bar"></div><div class="foot"><img class="qk foot-qk" src="assets/quoka-editor.png" alt=""><span class="where"></span><span class="grow"></span><button class="nav" data-prev title="이전">◀</button><span class="num"></span><button class="nav" data-next title="다음">▶</button><button class="btn ghost" data-toc>목차</button><button class="btn ghost" data-full>전체 화면</button></div><div class="toast"></div>`;
+  `<div class="bar"></div><div class="foot"><span class="edq foot-qk" style="--s:30px"><quoka-face live follow expression="happy" accessory="cap" size="30" sleep-after="0"></quoka-face><svg class="slate" viewBox="0 0 64 64" aria-hidden="true"><g class="arm"><rect x="7" y="13" width="50" height="11" rx="3.5" fill="#3A2F2A"/><path d="M15 13h8l-6 11h-8zM31 13h8l-6 11h-8zM47 13h8l-6 11h-8z" fill="#FFF5E8"/></g><rect x="7" y="24" width="50" height="33" rx="7" fill="#14A1C8"/><rect x="7" y="24" width="50" height="9" rx="3.5" fill="#3A2F2A"/><path d="M14 24h8l-5 9h-8zM30 24h8l-5 9h-8zM46 24h8l-5 9h-8z" fill="#FFF5E8"/><path d="M27.5 38.2a1.6 1.6 0 0 1 2.4-1.4l10 6a1.6 1.6 0 0 1 0 2.8l-10 6a1.6 1.6 0 0 1-2.4-1.4z" fill="#fff"/></svg></span><span class="where"></span><span class="grow"></span><button class="nav" data-prev title="이전">◀</button><span class="num"></span><button class="nav" data-next title="다음">▶</button><button class="btn ghost" data-toc>목차</button><button class="btn ghost" data-full>전체 화면</button></div><div class="toast"></div>`;
 const els = $$('.slide', stage);
 let now = 0;
 

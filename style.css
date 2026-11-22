@@ -575,8 +575,18 @@ ol.do li::before { content: counter(d); position: absolute; left: 14px; top: 12p
 .dlcard h3 quoka-icon { margin-right: 6px; }
 .soon .box .faceline { padding-top: 10px; }
 
-/* v3: 영상 편집자 쿼카 그림 */
-.qk { display: inline-block; width: auto; flex: none; filter: drop-shadow(0 6px 8px rgba(9, 28, 76, .14)); }
-.foot .foot-qk { height: 40px; margin-left: -40px; margin-right: 4px; filter: none; }
-.cv-face { left: -64px; top: -70px; }
-.faceline .qk { align-self: flex-end; }
+/* v4: 영상 편집자 쿼카 = 키트 얼굴 + 슬레이트 */
+.edq { position: relative; display: inline-block; flex: none; width: calc(var(--s) * 1.3); height: calc(var(--s) * 1.14); }
+.edq quoka-face { position: absolute; left: 0; top: 0; }
+.edq .slate { position: absolute; right: 0; bottom: 0; width: calc(var(--s) * .56); height: calc(var(--s) * .56); filter: drop-shadow(0 2px 3px rgba(9, 28, 76, .2)); overflow: visible; }
+.edq .slate .arm { transform-box: view-box; transform-origin: 10px 25px; transform: rotate(-15deg); }
+.edq:hover .slate .arm { animation: clap .46s ease-in-out 2; }
+@keyframes clap { 0%, 100% { transform: rotate(-15deg); } 50% { transform: rotate(0deg); } }
+@media (prefers-reduced-motion: reduce) { .edq:hover .slate .arm { animation: none; } }
+.foot .foot-qk { margin-left: -44px; margin-right: 6px; }
+.cv-face { left: -56px; top: -62px; }
+.faceline .edq { align-self: flex-end; }
+
+.edq quoka-face, .edq quoka-face * { background: transparent !important; box-shadow: none !important; }
+.faceline .edq { background: none; border: 0; padding: 0; border-radius: 0; }
+.foot .edq quoka-face { margin: 0; }
