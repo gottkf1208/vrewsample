@@ -652,3 +652,11 @@ h2 small { font-size: 20px; font-weight: 600; color: var(--text-2); margin-left:
 .why { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .why p { margin: 0; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; font-size: 14px; line-height: 21px; color: var(--text-2); }
 .why p b { display: block; color: var(--text); font-weight: 700; font-size: 15.5px; margin-bottom: 2px; }
+
+/* v11: 유형 카드에서 바로 듣기 */
+.bgm .b .au { display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
+.bgm .b .au .okmark { align-self: flex-start; margin: 0; }
+.bgm .b .au audio { margin-top: 0; height: 34px; }
+.bgm .b .row2 { display: flex; gap: 6px; margin-top: auto; }
+.bgm .b .row2 .btn { margin-top: 0; }
+.bgm .b .pp { font-size: 12.5px; line-height: 19px; }
