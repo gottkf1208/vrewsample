@@ -614,3 +614,14 @@ ol.do li::before { content: counter(d); position: absolute; left: 14px; top: 12p
 .cover .chip { background: rgba(255, 255, 255, .09); color: rgba(255, 255, 255, .72); }
 .cover .cv-right .screen { border-color: rgba(255, 255, 255, .16); box-shadow: 0 18px 40px rgba(0, 0, 0, .5); }
 .cover .cv-right .strip .card { border-color: rgba(255, 255, 255, .14); background: #101214; }
+
+/* v8: 마지막 장 COMING SOON — 표지와 같은 어두운 전체 화면 */
+.soon.one { grid-template-columns: 1fr; }
+.soon.one li { font-size: 19px; line-height: 32px; padding: 14px 0; }
+.slide.soonc { padding: 0; }
+.soonc .lab { position: absolute; inset: 0; width: 1600px; height: 900px; border: 0; background: #06070a; display: block; }
+.soon-foot { position: absolute; left: 0; right: 0; bottom: 92px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; pointer-events: none; animation: soonUp .9s 2.6s both cubic-bezier(.2, .8, .2, 1); }
+.soon-foot > * { pointer-events: auto; }
+.soon-foot p { margin: 0; max-width: 920px; text-wrap: balance; color: rgba(255, 255, 255, .72); font-size: 18px; line-height: 30px; }
+.soon-foot .chip.on { background: rgba(20, 161, 200, .18); color: #7FD8F0; border: 1px solid rgba(20, 161, 200, .5); }
+@keyframes soonUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }

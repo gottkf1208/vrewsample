@@ -28,9 +28,8 @@ const take = html => `<div class="take"><span>${html}</span></div>`;
 // ───────── 브루 샘플러 본문 (문구는 copy.json → T) ─────────
 const path = (...xs) => `<span class="path">${xs.map(x => `<b>${x}</b>`).join('<i>›</i>')}</span>`;
 const mo = (file, cls) => `<video class="${cls}" data-src="${A}${file}" muted loop playsinline preload="none"></video>`;
-// 영상 편집자 쿼카: 홈페이지 키트의 얼굴(볼캡) + 키트 아이콘 방식으로 그린 슬레이트
-const SLATE = '<svg class="slate" viewBox="0 0 64 64" aria-hidden="true"><g class="arm"><rect x="7" y="13" width="50" height="11" rx="3.5" fill="#3A2F2A"/><path d="M15 13h8l-6 11h-8zM31 13h8l-6 11h-8zM47 13h8l-6 11h-8z" fill="#FFF5E8"/></g><rect x="7" y="24" width="50" height="33" rx="7" fill="#14A1C8"/><rect x="7" y="24" width="50" height="9" rx="3.5" fill="#3A2F2A"/><path d="M14 24h8l-5 9h-8zM30 24h8l-5 9h-8zM46 24h8l-5 9h-8z" fill="#FFF5E8"/><path d="M27.5 38.2a1.6 1.6 0 0 1 2.4-1.4l10 6a1.6 1.6 0 0 1 0 2.8l-10 6a1.6 1.6 0 0 1-2.4-1.4z" fill="#fff"/></svg>';
-const face = (size) => `<span class="edq" style="--s:${size}px" title="영상 편집하는 쿼카"><quoka-face live follow expression="happy" accessory="cap" size="${size}" sleep-after="0" label="영상 편집하는 쿼카"></quoka-face>${SLATE}</span>`;
+// 쿼카 아이콘은 쓰지 않는다
+const face = () => '';
 const icon = (name, size = 40) => `<quoka-icon name="${name}" size="${size}"></quoka-icon>`;
 const todo = (...keys) => `<ol class="do">${keys.map(k => `<li>${T[k]}</li>`).join('')}</ol>`;
 // 브루 창을 본뜬 견본: 화면에서 확인한 칸 이름만 쓴다
@@ -59,7 +58,7 @@ slide('표지', '시작', 'cover', () => {
   </div><div class="cv-right">
     <button class="screen card" data-i="${f}"><video data-src="${A}final.mp4" muted loop playsinline preload="none"></video><span class="tag dark">완성 영상 · 20초</span><span class="zoom">크게 보기</span></button>
     <div class="strip">${th(a, 'm06-gpt25.jpg', '① 주인공')}${th(b, 'cut-3.jpg', '② 콘티')}${th(c, 'cut-4.jpg', '③ 콜라주')}</div>
-    <div class="cv-face">${face(92)}</div>
+    
   </div></div>`;
 });
 
@@ -94,7 +93,7 @@ slide('1단계 ② 같은 프롬프트, 모델 2종', '1단계 주인공', '', (
   return `${head('1단계 · 주인공 캐릭터', '프롬프트 · 3:4', '모델', pbtn('두 모델에 넣은 프롬프트', P.img))}<h2>같은 프롬프트, <em>브루 모델 2종</em></h2><div class="body"><div class="cmp">
     ${card(HERO_IT, 'GPT Image 2.5', 'OpenAI · 브루 기본 모델 계열', T.cmp_gpt, '동화책 삽화 기본', 1)}
     ${card(NANO_IT, 'Nano Banana 2.1', 'Google', T.cmp_nano, '아기자기한 삽화', 0)}
-    <div class="side"><h3>고르는 기준</h3><p>${T.cmp_side1}</p><p>${T.cmp_side2}</p><p>${T.cmp_side3}</p><div class="faceline">${face(72, 'glasses', 'think')}<span>옷과 머리 모양이 또렷한 쪽으로!</span></div></div>
+    <div class="side"><h3>고르는 기준</h3><p>${T.cmp_side1}</p><p>${T.cmp_side2}</p><p>${T.cmp_side3}</p></div>
   </div>${take(T.cmp_take)}</div>`;
 });
 
@@ -198,7 +197,7 @@ how('4단계 ① 자막', '<em>자막</em>을 네 줄로 넣습니다', path('�
     <div class="capdemo"><img src="${A}final-poster.jpg" alt=""><span class="tag dark">자막을 얹은 화면</span></div></div>`);
 how('4단계 ② AI 목소리', '자막에 <em>AI 목소리</em>를 입힙니다', path('AI 목소리', 'AI 자막 더빙'), ['voice_do1', 'voice_do2', 'voice_do3', 'voice_do4'], 'voice_note',
   () => `<div class="pcard white" style="min-height:0"><div class="top"><h3>한 줄은 3~4초 분량으로</h3>${copyBtn(P.script, '대본 복사')}</div>${scriptTable(true)}
-    <div class="faceline big">${face(96, 'headset', 'happy')}<span>장면이 바뀌고 0.5초쯤 뒤에<br>말이 시작되면 자연스럽습니다.</span></div></div>`);
+    <div class="quote">장면이 바뀌고 0.5초쯤 뒤에<br>말이 시작되면 자연스럽습니다.</div></div>`);
 how('4단계 ③ 배경 음악', '<em>배경 음악</em>을 깔고 음량을 맞춥니다', path('삽입', '배경 음악', 'AI 음악'), ['bgm_do1', 'bgm_do2', 'bgm_do3', 'bgm_do4'], 'bgm_note',
   () => `<div class="pcard white" style="min-height:0"><div class="top"><h3>졸업 축하 영상용 프롬프트</h3>${copyBtn(P.bgmGrad)}</div><pre class="plainpre">${esc(P.bgmGrad)}</pre><div class="made"><span class="okmark">이 프롬프트로 브루 AI 음악이 만든 곡</span><audio controls preload="none" src="${A}bgm-graduation.mp3"></audio></div>
     <div class="ba"><button class="card" data-i="${reg(COLLAGE())}"><div class="media"><video data-src="${A}egg-layered.mp4#t=10.5" muted loop playsinline preload="none"></video></div><span class="tag dark">얹기 전 · 3단계 영상</span></button><span class="arrow">→</span><button class="card pick" data-i="${reg(FINAL())}"><div class="media"><video data-src="${A}final.mp4#t=10.5" muted loop playsinline preload="none"></video></div><span class="tag">얹은 뒤 · 완성본</span></button></div></div>`);
@@ -259,12 +258,14 @@ slide('자료 내려받기', '정리', '', () => {
   </div>${take(T.dl_take)}</div>`;
 });
 
-// ── 곧 추가 + 확인 기록
-slide('COMING SOON · 확인 기록', '정리', '', () => `${head('정리', '', '', `<span class="chip">${CHECKED}</span>`)}<h2>다음에 <em>더할 것</em>과 확인 기록</h2><div class="body"><div class="soon">
-    <div class="box hold">${mo('mo-soon.webm', '')}<h3>모션 따라 하기 · 춤 따라 하기</h3><p>${T.soon_body}</p></div>
-    <div class="box"><h3>이렇게 확인했습니다</h3><ul><li>${T.rec_1}</li><li>${T.rec_2}</li><li>${T.rec_3}</li><li>${T.rec_4}</li><li>${T.rec_6}</li><li>${T.rec_5}</li></ul>
-      <div class="faceline big" style="margin-top:auto">${face(110, 'headset', 'excited')}<span>${T.bye}</span></div></div>
+// ── 확인 기록
+slide('확인 기록', '정리', '', () => `${head('정리', '', '', `<span class="chip">${CHECKED}</span>`)}<h2>이렇게 <em>확인했습니다</em></h2><div class="body"><div class="soon one">
+    <div class="box"><ul><li>${T.rec_1}</li><li>${T.rec_2}</li><li>${T.rec_3}</li><li>${T.rec_4}</li><li>${T.rec_6}</li><li>${T.rec_5}</li></ul></div>
   </div></div>`);
+
+// ── 마지막 장: COMING SOON (표지와 같은 어두운 전체 화면, 쿼카 모션랩 「글자 사이로 통과」)
+slide('COMING SOON', '정리', 'cover soonc', () => `<iframe class="lab" data-src="soon.html" data-replay title="COMING SOON 모션 따라 하기 · 춤 따라 하기" scrolling="no" tabindex="-1"></iframe>
+  <div class="soon-foot"><span class="chip on">브루 업데이트를 기다리는 중</span><p>${T.soon_body}</p><button class="btn ghost big" data-go="1">처음으로</button></div>`);
 
 // 프롬프트 전체를 글 파일로
 function promptsText() {
@@ -290,7 +291,7 @@ const firstOf = k => slides.findIndex(s => s.title.startsWith(k)) + 1;
 const rangeOf = g => { const ix = slides.map((s, i) => (s.group === g ? i + 1 : 0)).filter(Boolean); return `${ix[0]}–${ix[ix.length - 1]}`; };
 const fill = h => h.replace(/\{\{n\}\}/g, slides.length).replace(/\{\{r:(.+?)\}\}/g, (_, g) => rangeOf(g));
 stage.innerHTML = slides.map((s, n) => `<section class="slide ${s.cls}" data-n="${n + 1}">${fill(s.html).replace(/<img src="/g, '<img data-src="')}</section>`).join('') +
-  `<div class="bar"></div><div class="foot"><span class="edq foot-qk" style="--s:30px"><quoka-face live follow expression="happy" accessory="cap" size="30" sleep-after="0"></quoka-face><svg class="slate" viewBox="0 0 64 64" aria-hidden="true"><g class="arm"><rect x="7" y="13" width="50" height="11" rx="3.5" fill="#3A2F2A"/><path d="M15 13h8l-6 11h-8zM31 13h8l-6 11h-8zM47 13h8l-6 11h-8z" fill="#FFF5E8"/></g><rect x="7" y="24" width="50" height="33" rx="7" fill="#14A1C8"/><rect x="7" y="24" width="50" height="9" rx="3.5" fill="#3A2F2A"/><path d="M14 24h8l-5 9h-8zM30 24h8l-5 9h-8zM46 24h8l-5 9h-8z" fill="#FFF5E8"/><path d="M27.5 38.2a1.6 1.6 0 0 1 2.4-1.4l10 6a1.6 1.6 0 0 1 0 2.8l-10 6a1.6 1.6 0 0 1-2.4-1.4z" fill="#fff"/></svg></span><span class="where"></span><span class="grow"></span><button class="nav" data-prev title="이전">◀</button><span class="num"></span><button class="nav" data-next title="다음">▶</button><button class="btn ghost" data-toc>목차</button><button class="btn ghost" data-full>전체 화면</button></div><div class="toast"></div>`;
+  `<div class="bar"></div><div class="foot"><span class="where"></span><span class="grow"></span><button class="nav" data-prev title="이전">◀</button><span class="num"></span><button class="nav" data-next title="다음">▶</button><button class="btn ghost" data-toc>목차</button><button class="btn ghost" data-full>전체 화면</button></div><div class="toast"></div>`;
 const els = $$('.slide', stage);
 let now = 0;
 
@@ -390,7 +391,7 @@ go(parseInt(location.hash.slice(1)) || 1, false);
 // 표지의 모션랩 장면(iframe): 보일 때 불러오고, 그 안의 키·마우스를 덱으로 넘긴다
 function playVideos(root, on) {
   $$('video[data-src]', root).forEach(v => { if (on) { if (!v.src) v.src = v.dataset.src; v.play().catch(() => {}); } else v.pause(); });
-  $$('iframe[data-src]', root).forEach(f => { if (on && !f.getAttribute('src')) { f.addEventListener('load', () => hookFrame(f), { once: true }); f.src = f.dataset.src; } });
+  $$('iframe[data-src]', root).forEach(f => { if (on && (!f.getAttribute('src') || f.dataset.replay !== undefined)) { f.addEventListener('load', () => hookFrame(f), { once: true }); f.src = f.dataset.src; } });
 }
 function hookFrame(f) {
   try {
