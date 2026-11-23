@@ -42,7 +42,7 @@ const plainText = h => h.replace(/<[^>]+>/g, '');
 const HERO_IT = { kind: 'img', src: `${A}vh-gpt26-sunburst.jpg`, name: '주인공 · 어린 왕자', by: '브루 AI 이미지 · GPT Image 2.6 Sunburst', chips: ['일반 · Low · 3:4', '10 크레딧', '브루에서 직접 생성'], note: plainText(T.cmp_gpt), use: '2단계에서 참고 이미지로 넣습니다', prompt: P.imgNoTitle };
 const shotItem = n => { const s = EGG_SHOTS[n]; return { kind: 'img', src: `${A}${s.img}.jpg`, name: `장면 ${n + 1} · ${s.name}`, by: '브루 AI 이미지 · GPT Image 2.6 Sunburst · 캐릭터 시트를 참고 이미지로', chips: ['16:9', s.t, '10 크레딧', '브루에서 직접 생성'], note: s.story, use: `카메라: ${s.cam}`, prompt: s.prompt, tag: s.t }; };
 const COLLAGE = () => ({ kind: 'vid', src: `${A}egg-layered.mp4`, name: '콜라주 영상 · 어린 왕자의 졸업 비행', dl: '어린왕자 졸업 콜라주 20초 자막없음', by: '브루 AI 비디오 · Seedance 2.5 · 콘티 4장', chips: ['20초 · 720p · 소리', '16:9', '브루에서 직접 생성'], note: plainText(T.dl_20), prompt: P.eggVideo });
-const FINAL = () => ({ kind: 'vid', src: `${A}final.mp4`, name: '완성 · 어린 왕자의 졸업 축하 영상', dl: '어린왕자 졸업 축하 영상 20초 완성본', by: '4단계 · 자막 + AI 목소리 + 배경 음악', chips: ['20초 · 720p', '자막 4줄 · 내레이션'], note: plainText(T.dl_final), prompt: P.script });
+const FINAL = () => ({ kind: 'vid', src: `${A}final.mp4`, name: '완성 · 어린 왕자의 졸업 축하 영상', dl: '어린왕자 졸업 축하 영상 20초 완성본', by: '4단계 · 자막 + 브루 AI 목소리(국희) + 브루 AI 음악', chips: ['20초 · 720p', '자막 4줄 · 내레이션'], note: plainText(T.dl_final), prompt: P.script });
 const ONEMIN = () => ({ kind: 'vid', src: `${A}egg-1min.mp4`, name: '1분 졸업 축하 영상 (자막 없음)', dl: '어린왕자 졸업 축하 영상 1분 자막없음', by: '자막 없는 1분 영상', chips: ['60초 · 720p · 소리', '자막 없음'], note: plainText(T.dl_1min) });
 const thumbs4 = () => EGG_SHOTS.map((s, n) => { const i = reg(shotItem(n)); return `<button class="thumb card" data-i="${i}"><img src="${A}${s.img}.jpg" alt=""><span class="tag dark">${n + 1}</span></button>`; }).join('');
 const clamp = (t, n) => esc(t.length > n ? t.slice(0, n) + '…' : t);
@@ -192,7 +192,7 @@ slide('3단계 ④ 브루에서 뽑은 종이비행기', '3단계 콜라주 영�
 });
 
 // ── 4단계 세 쪽: 자막 · AI 목소리 · 배경 음악
-const SAY = ['3.0초', '3.5초', '3.4초', '4.0초'];
+const SAY = ['3.1초', '3.4초', '3.5초', '3.3초'];  // 브루 AI 목소리(국희)로 만든 실제 말 길이
 const scriptTable = withSay => `<table class="script">${SCRIPT.map((s, n) => `<tr><td class="t">${s[0]}</td><td>${esc(s[1])}</td>${withSay ? `<td class="s">말 ${SAY[n]}</td>` : ''}</tr>`).join('')}</table>`;
 const how = (title, h2, paths, keys, noteKey, right) => slide(title, '4단계 완성', '', () => `${head('4단계 · 얹어서 완성', '', '', paths)}<h2>${h2}</h2><div class="body"><div class="split wide">
     <div class="side"><h3>브루에서 이렇게</h3>${todo(...keys)}<div class="quote">${T[noteKey]}</div></div>${right()}</div></div>`);
@@ -201,7 +201,8 @@ how('4단계 ① 자막', '<em>자막</em>을 네 줄로 넣습니다', path('�
     <div class="capdemo"><img src="${A}final-poster.jpg" alt=""><span class="tag dark">자막을 얹은 화면</span></div></div>`);
 how('4단계 ② AI 목소리', '자막에 <em>AI 목소리</em>를 입힙니다', path('AI 목소리', 'AI 자막 더빙'), ['voice_do1', 'voice_do2', 'voice_do3', 'voice_do4'], 'voice_note',
   () => `<div class="pcard white" style="min-height:0"><div class="top"><h3>한 줄은 3~4초 분량으로</h3>${copyBtn(P.script, '대본 복사')}</div>${scriptTable(true)}
-    <div class="quote">장면이 바뀌고 0.5초쯤 뒤에<br>말이 시작되면 자연스럽습니다.</div></div>`);
+    <div class="made"><span class="okmark">브루 AI 목소리 · 국희 · 네 줄 15초 · 6 크레딧</span><audio controls preload="none" src="${A}voice-narration.mp3"></audio></div>
+    <div class="quote">장면이 바뀌고 0.5초쯤 뒤에 말이 시작되면 자연스럽습니다.</div></div>`);
 how('4단계 ③ 배경 음악', '<em>배경 음악</em>을 깔고 음량을 맞춥니다', path('삽입', '배경 음악', 'AI 음악'), ['bgm_do1', 'bgm_do2', 'bgm_do3', 'bgm_do4'], 'bgm_note',
   () => `<div class="pcard white" style="min-height:0"><div class="top"><h3>졸업 축하 영상용 프롬프트</h3>${copyBtn(P.bgmGrad)}</div><pre class="plainpre">${esc(P.bgmGrad)}</pre><div class="made"><span class="okmark">이 프롬프트로 브루 AI 음악이 만든 곡</span><audio controls preload="none" src="${A}bgm-graduation.mp3"></audio></div>
     <div class="ba"><button class="card" data-i="${reg(COLLAGE())}"><div class="media"><video data-src="${A}egg-layered.mp4#t=10.5" muted loop playsinline preload="none"></video></div><span class="tag dark">얹기 전 · 3단계 영상</span></button><span class="arrow">→</span><button class="card pick" data-i="${reg(FINAL())}"><div class="media"><video data-src="${A}final.mp4#t=10.5" muted loop playsinline preload="none"></video></div><span class="tag">얹은 뒤 · 완성본</span></button></div></div>`);
