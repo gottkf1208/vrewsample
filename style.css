@@ -666,3 +666,17 @@ h2 small { font-size: 20px; font-weight: 600; color: var(--text-2); margin-left:
 .bgm .b { gap: 4px; padding: 12px 16px 10px; }
 .bgm .b .pp { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; flex: 0 0 auto; padding: 7px 10px; }
 .bgm .b .au audio { height: 32px; }
+
+/* v13 */
+.vp-ref.wide img { width: 150px; height: 84px; object-position: 50% 40%; }
+
+/* v14: 콘티 4장면을 크게 */
+.cuts22 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1; min-height: 0; align-content: start; }
+.cuts22 .card.cut { display: grid; grid-template-columns: 500px 1fr; text-align: left; background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.cuts22 .card.cut .media { aspect-ratio: 16 / 9; height: auto; }
+.cuts22 .card.cut .media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cuts22 .card.cut .txt { padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 8px; }
+.cuts22 .card.cut .t { align-self: flex-start; font-size: 13px; line-height: 22px; font-weight: 700; color: var(--brand-text); background: var(--tint); border-radius: 999px; padding: 0 10px; }
+.cuts22 .card.cut .name { font-size: 21px; line-height: 28px; font-weight: 700; }
+.cuts22 .card.cut .note { font-size: 15px; line-height: 23px; color: var(--text-2); }
+.cuts22 .card.cut .use { font-size: 14px; font-weight: 600; margin-top: auto; }

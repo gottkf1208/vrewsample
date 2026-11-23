@@ -40,8 +40,8 @@ const opt = (...xs) => xs.map(x => `<span class="vp-opt">${x}</span>`).join('');
 const plainText = h => h.replace(/<[^>]+>/g, '');
 
 const HERO_IT = { kind: 'img', src: `${A}vh-gpt26-sunburst.jpg`, name: '주인공 · 어린 왕자', by: '브루 AI 이미지 · GPT Image 2.6 Sunburst', chips: ['일반 · Low · 3:4', '10 크레딧', '브루에서 직접 생성'], note: plainText(T.cmp_gpt), use: '2단계에서 참고 이미지로 넣습니다', prompt: P.imgNoTitle };
-const shotItem = n => { const s = EGG_SHOTS[n]; return { kind: 'img', src: `${A}${s.img}.jpg`, name: `장면 ${n + 1} · ${s.name}`, by: '2단계 · 콘티 (주인공 그림을 참고 이미지로)', chips: ['16:9', s.t], note: s.story, use: `카메라: ${s.cam}`, prompt: s.prompt, tag: s.t }; };
-const COLLAGE = () => ({ kind: 'vid', src: `${A}egg-layered.mp4`, name: '콜라주 영상 · 어린 왕자의 졸업 비행', dl: '어린왕자 졸업 콜라주 20초 자막없음', by: '3단계 · Seedance 2.5 · 콘티 4장', chips: ['20초 · 720p · 소리', '16:9'], note: plainText(T.dl_20), prompt: P.eggVideo });
+const shotItem = n => { const s = EGG_SHOTS[n]; return { kind: 'img', src: `${A}${s.img}.jpg`, name: `장면 ${n + 1} · ${s.name}`, by: '브루 AI 이미지 · GPT Image 2.6 Sunburst · 캐릭터 시트를 참고 이미지로', chips: ['16:9', s.t, '10 크레딧', '브루에서 직접 생성'], note: s.story, use: `카메라: ${s.cam}`, prompt: s.prompt, tag: s.t }; };
+const COLLAGE = () => ({ kind: 'vid', src: `${A}egg-layered.mp4`, name: '콜라주 영상 · 어린 왕자의 졸업 비행', dl: '어린왕자 졸업 콜라주 20초 자막없음', by: '브루 AI 비디오 · Seedance 2.5 · 콘티 4장', chips: ['20초 · 720p · 소리', '16:9', '브루에서 직접 생성'], note: plainText(T.dl_20), prompt: P.eggVideo });
 const FINAL = () => ({ kind: 'vid', src: `${A}final.mp4`, name: '완성 · 어린 왕자의 졸업 축하 영상', dl: '어린왕자 졸업 축하 영상 20초 완성본', by: '4단계 · 자막 + AI 목소리 + 배경 음악', chips: ['20초 · 720p', '자막 4줄 · 내레이션'], note: plainText(T.dl_final), prompt: P.script });
 const ONEMIN = () => ({ kind: 'vid', src: `${A}egg-1min.mp4`, name: '1분 졸업 축하 영상 (자막 없음)', dl: '어린왕자 졸업 축하 영상 1분 자막없음', by: '자막 없는 1분 영상', chips: ['60초 · 720p · 소리', '자막 없음'], note: plainText(T.dl_1min) });
 const thumbs4 = () => EGG_SHOTS.map((s, n) => { const i = reg(shotItem(n)); return `<button class="thumb card" data-i="${i}"><img src="${A}${s.img}.jpg" alt=""><span class="tag dark">${n + 1}</span></button>`; }).join('');
@@ -127,20 +127,19 @@ slide('2단계 ① 만들고 싶은 영상 정하기', '2단계 콘티', '', () 
   </div>${take(T.plan_take)}</div>`;
 });
 
-// ── 2단계 ② 콘티 4장면
+// ── 2단계 ② 콘티 4장면 (그림을 크게, 두 줄 두 칸)
 slide('2단계 ② 콘티 4장면', '2단계 콘티', '', () => {
-  const cards = EGG_SHOTS.map((s, n) => plain(shotItem(n), '', `<div class="txt"><div class="row"><span class="name">${n + 1}. ${esc(s.name)}</span></div><div class="note">${esc(s.story)}</div><div class="use">카메라 · ${esc(s.cam)}</div></div>`)).join('');
-  return `${head('2단계 · 만들고 싶은 영상', '주인공 그림 한 장', '장면', pbtn('장면 3에 넣은 프롬프트', EGG_SHOTS[2].prompt))}<h2>20초를 <em>4장면</em>으로 나눕니다</h2><div class="body">
-    <div class="timeline">${EGG_SHOTS.map(s => `<div><i></i><span>${s.t}</span></div>`).join('')}</div>
-    <div class="grid-4">${cards}</div>${take(T.board_take)}</div>`;
+  const cards = EGG_SHOTS.map((s, n) => plain(shotItem(n), 'cut', `<div class="txt"><span class="t">${s.t}</span><div class="name">${n + 1}. ${esc(s.name)}</div><div class="note">${esc(s.story)}</div><div class="use">카메라 · ${esc(s.cam)}</div></div>`)).join('');
+  return `${head('2단계 · 만들고 싶은 영상', '캐릭터 시트 한 장', '장면', pbtn('장면 3에 넣은 프롬프트', EGG_SHOTS[2].prompt))}<h2>20초를 <em>4장면</em>으로 나눕니다</h2><div class="body">
+    <div class="cuts22">${cards}</div>${take(T.board_take)}</div>`;
 });
 
 // ── 2단계 ③ 콘티 뽑는 법
 slide('2단계 ③ 콘티 뽑는 법', '2단계 콘티', '', () => {
   const s = EGG_SHOTS[0];
-  return `${head('2단계 · 만들고 싶은 영상', '', '', path('삽입', 'AI 이미지') + copyBtn(s.prompt, '장면 1 프롬프트 복사'))}<h2>주인공 그림을 <em>참고 이미지</em>로 넣습니다</h2><div class="body"><div class="tri">
+  return `${head('2단계 · 만들고 싶은 영상', '', '', path('삽입', 'AI 이미지') + copyBtn(s.prompt, '장면 1 프롬프트 복사'))}<h2>캐릭터 시트를 <em>참고 이미지</em>로 넣습니다</h2><div class="body"><div class="tri">
     <div class="side"><h3>브루에서 이렇게</h3>${todo('bd_do1', 'bd_do2', 'bd_do3', 'bd_do4')}<div class="quote">${T.bd_note}</div></div>
-    ${vp('AI 이미지', [], [['생성 모델', '<span class="vp-sel">GPT Image 2.5 Sunburst</span>'], ['프롬프트', `<div class="vp-ta">${clamp(s.prompt, 170)}</div>`], ['참고 이미지', `<span class="vp-ref"><img src="${A}vh-gpt26-sunburst.jpg" alt=""></span><span class="vp-hint">1단계 주인공 그림 · 최대 3장</span>`], ['설정', opt('일반', 'Low', '16:9')]], '이미지 1장 생성', '장면마다 한 번, 모두 네 번')}
+    ${vp('AI 이미지', [], [['생성 모델', '<span class="vp-sel">GPT Image 2.6 Sunburst</span>'], ['프롬프트', `<div class="vp-ta">${clamp(s.prompt, 170)}</div>`], ['참고 이미지', `<span class="vp-ref wide"><img src="${A}vh-sheet.jpg" alt=""></span><span class="vp-hint">1단계 캐릭터 시트 · 최대 3장</span>`], ['설정', opt('일반', 'Low', '16:9')]], '이미지 1장 생성', '장면마다 10 크레딧, 모두 네 번')}
     <div class="pcard white"><div class="top"><h3>장면 프롬프트의 뼈대</h3></div>
       <div class="four one"><span><b>방식</b> 실사 사진 위에 종이 인형을 얹은 콜라주 한 컷</span><span><b>배경</b> 실제 사진 같은 빈 교실, 열린 창문, 햇살</span><span><b>주인공</b> 첨부한 그림의 주인공을 수채화로 그려 오려 낸 종이 인형</span><span><b>마무리</b> 가로 16:9, 넣지 말 것(글자·로고·사람)</span></div>
       <div class="thumbs4" style="margin-top:auto">${thumbs4()}</div></div>
