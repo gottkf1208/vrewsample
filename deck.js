@@ -105,13 +105,11 @@ slide('1단계 ③ 캐릭터 시트', '1단계 주인공', '', () => {
 });
 
 // ── 1단계 ③ 그림체
-slide('1단계 ④ 그림체 한 줄만 바꾸면', '1단계 주인공', '', () => {
-  const row = STYLES.map((s, i) => plain({ kind: 'img', src: `${A}s-gpt-${i + 1}.jpg`, name: s[0], by: '그림체 줄만 바꿈', chips: ['세로 3:4'], note: `그림체 줄: ${s[1]}`, prompt: P.style(i) })).join('');
-  return `${head('1단계 · 주인공 캐릭터', '장면 · 3:4', '[그림체] 한 줄', pbtn('그림체 줄만 바꾼 프롬프트 (예: 한국 민화)', P.style(5)))}<h2>그림체 <em>한 줄</em>만 바꾸면</h2><div class="body"><div class="styles">
-    <div class="labels">${STYLES.map(s => `<span>${s[0]}</span>`).join('')}</div><div class="row">${row}</div>
-    <div class="stylelines">${STYLES.map(s => `<span>${esc(s[1])}</span>`).join('')}</div>
-  </div>${take(T.style_take)}</div>`;
-});
+const styleCard = i => { const st = STYLES[i]; const n = reg({ kind: 'img', src: `${A}s-gpt-${i + 1}.jpg`, name: st[0], by: '브루 AI 이미지 · GPT Image 2.6 Sunburst · 그림체 줄만 바꿈', chips: ['일반 · Low · 3:4', '10 크레딧', '브루에서 직접 생성'], note: `그림체 줄: ${st[1]}`, prompt: P.style(i) });
+  return `<button class="card hero" data-i="${n}"><div class="media"><img src="${A}s-gpt-${i + 1}.jpg" alt="${st[0]} 그림체로 그린 어린 왕자"><span class="zoom">크게 보기</span></div><div class="txt"><div class="name">${st[0]}</div><div class="note">${esc(st[1])}</div></div></button>`; };
+const styleSlide = (tag, from) => slide(`1단계 ④ 그림체 한 줄만 바꾸면 (${tag})`, '1단계 주인공', '', () => `${head('1단계 · 주인공 캐릭터', '장면 · 일반 · Low · 3:4', '[그림체] 한 줄', pbtn('그림체 줄만 바꾼 프롬프트 (예: 한국 민화)', P.style(5)))}<h2>그림체 <em>한 줄</em>만 바꾸면 <small>${from + 1}~${from + 4} / 8</small></h2><div class="body"><div class="heroes n4s">${[0, 1, 2, 3].map(k => styleCard(from + k)).join('')}</div>${take(T.style_take)}</div>`);
+styleSlide('가', 0);
+styleSlide('나', 4);
 
 // ── 2단계 ① 영상 정하기
 slide('2단계 ① 만들고 싶은 영상 정하기', '2단계 콘티', '', () => {

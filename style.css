@@ -680,3 +680,7 @@ h2 small { font-size: 20px; font-weight: 600; color: var(--text-2); margin-left:
 .cuts22 .card.cut .name { font-size: 21px; line-height: 28px; font-weight: 700; }
 .cuts22 .card.cut .note { font-size: 15px; line-height: 23px; color: var(--text-2); }
 .cuts22 .card.cut .use { font-size: 14px; font-weight: 600; margin-top: auto; }
+
+/* v17: 그림체 4장씩 크게 */
+.heroes.n4s { grid-template-columns: repeat(4, 340px); justify-content: center; gap: 22px; }
+.heroes.n4s .card.hero .name { font-size: 18px; }
