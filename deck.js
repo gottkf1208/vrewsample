@@ -258,7 +258,7 @@ slide('자료 내려받기', '정리', '', () => {
     ${v(ONEMIN(), '1분 졸업 축하 영상', T.dl_1min, 'mp4 · 60초 · 720p · 자막 없음')}
     ${v(COLLAGE(), '콜라주 영상 20초', T.dl_20, 'mp4 · 20초 · 720p · 자막 없음')}
     ${v(FINAL(), '완성본 20초', T.dl_final, 'mp4 · 20초 · 720p')}
-    <div class="dlcard wide"><div class="txt"><h3>${icon('download', 30)} 따라 하기 묶음</h3><p>주인공 그림 1장, 콘티 4장, 대본, 자막 파일</p><div class="row"><a class="btn primary" href="${A}vrew-sampler-pack.zip" download="브루샘플러-따라하기-묶음.zip">묶음 내려받기</a><span class="meta">zip</span></div></div></div>
+    <div class="dlcard wide"><div class="txt"><h3>${icon('download', 30)} 따라 하기 묶음</h3><p>주인공 그림, 캐릭터 시트, 콘티 4장, 대본, 자막 파일</p><div class="row"><a class="btn primary" href="${A}vrew-sampler-pack.zip" download="브루샘플러-따라하기-묶음.zip">묶음 내려받기</a><span class="meta">zip</span></div></div></div>
     <div class="dlcard wide"><div class="txt"><h3>${icon('worksheet', 30)} 프롬프트 전체</h3><p>그림 · 콘티 · 영상 · 배경 음악 프롬프트를 글 파일 하나로</p><div class="row"><button class="btn primary" data-dltxt>프롬프트 내려받기</button><span class="meta">txt</span></div></div></div>
     <div class="dlcard wide"><div class="txt"><h3>${icon('download', 30)} 브루 AI 음악 9곡</h3><p>브루 AI 음악으로 만든 연주곡. 눌러서 받습니다.</p><div class="row" style="flex-wrap:wrap;gap:6px">${BGM_SAMPLES.map(x => `<a class="btn ghost sm" href="${A}${x.src}" download="브루AI음악_${BGM_TYPES[x.type].name.replace(/[ ·]+/g, '-')}.mp3">${BGM_TYPES[x.type].name}</a>`).join('')}</div></div></div>
   </div>${take(T.dl_take)}</div>`;
