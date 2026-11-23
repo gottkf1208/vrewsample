@@ -3,265 +3,267 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>굵어지는 제목</title>
-<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#FBFBFB}</style>
+<title>입자 모여 이름</title>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#06070a}</style>
 </head>
 <body>
-<!-- 쿼카 모션랩 · 굵어지는 제목 (Proximity Weight) -->
-<!-- 글꼴: 프리텐다드 (OFL) · 원티드 산스 (OFL) · 눈누(noonnu.cc)의 무료 한글 글꼴 -->
+<!-- 쿼카 모션랩 · 입자 모여 이름 (Particle Form) -->
+<!-- 글꼴: 페이퍼로지 (OFL) · 프리텐다드 (OFL) · 눈누(noonnu.cc)의 무료 한글 글꼴 -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Noto+Sans+KR:wght@100..900&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.1/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
-<div id="qm-lp-weight-title" style="width:100%;max-width:calc(100vh * 1.7778)"></div>
+<style>
+@font-face{font-family:'Paperlogy';font-style:normal;font-weight:100;font-display:swap;src:url(https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-1Thin.woff2) format('woff2')}@font-face{font-family:'Paperlogy';font-style:normal;font-weight:200;font-display:swap;src:url(https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-2ExtraLight.woff2) format('woff2')}@font-face{font-family:'Paperlogy';font-style:normal;font-weight:300;font-display:swap;src:url(https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-3Light.woff2) format('woff2')}@font-face{font-family:'Paperlogy';font-style:normal;font-weight:400;font-display:swap;src:url(https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2) format('woff2')}@font-face{font-family:'Paperlogy';font-style:normal;font-weight:500;font-display:swap;src:url(https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2) format('woff2')}@font-face{font-family:'Paperlogy';font-style:normal;font-weight:600;font-display:swap;src:url(https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2) format('woff2')}@font-face{font-family:'Paperlogy';font-style:normal;font-weight:700;font-display:swap;src:url(https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2) format('woff2')}@font-face{font-family:'Paperlogy';font-style:normal;font-weight:800;font-display:swap;src:url(https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2) format('woff2')}@font-face{font-family:'Paperlogy';font-style:normal;font-weight:900;font-display:swap;src:url(https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2) format('woff2')}
+</style>
+<div id="qm-brc-particle-form" style="width:100%;max-width:calc(100vh * 1.7778)"></div>
 <script>
 (function () {
   // ① 설정: 여기만 고치면 됩니다
   const CONFIG = {
     speed: 1,          // 속도 (1 = 기본, 2 = 두 배)
-    bg: '#FBFBFB',     // 배경색 ('transparent'로 바꾸면 투명)
-    colors: ['#ffffff', '#e8ecf3', '#cfd7e6', '#9aa8c4', '#5c7099', '#14A1C8', '#6e1a2f', '#15171c'],   // 색 8개: 밝은 색 → 진한 색 ([5] 포인트 색, [7] 글자색)
-    live: true,        // 실제 마우스·스크롤에 반응 (false면 연출대로만 움직임)
+    bg: '#06070a',     // 배경색 ('transparent'로 바꾸면 투명)
+    colors: ['#ffffff', '#e4e7ee', '#bcc3d0', '#7f8899', '#363d4c', '#14A1C8', '#1f3460', '#06070a'],   // 색 8개: 밝은 색 → 진한 색 ([5] 포인트 색, [7] 글자색)
     ratio: '16 / 9'    // 화면 비율 (가로 / 세로)
   };
 
-  // ② 모션: 굵어지는 제목
-  function lpKit(api) {
-    const clamp = x => Math.max(0, Math.min(1, x));
-    const lp = {
-      face: name => `'${name}','Pretendard Variable','Pretendard',sans-serif`,   // 한글 글꼴 하나 + 대체로 프리텐다드 (한 글줄 안에서 글꼴이 섞이지 않게)
-      clamp: clamp,
-      seg: (t, a, b) => clamp((t - a) / (b - a)),                 // t가 a~b 사이 어디쯤인지 0~1로
-      mix: (a, b, p) => a + (b - a) * p,
-      out: x => 1 - Math.pow(1 - clamp(x), 4),                    // 빠르게 출발해 부드럽게 멈춤
-      expo: x => { x = clamp(x); return x >= 1 ? 1 : 1 - Math.pow(2, -10 * x); },   // 더 급하게 출발해 길게 멈춤
-      into: x => Math.pow(clamp(x), 3),                           // 천천히 출발해 빠르게 빠져나감
-      io: x => { x = clamp(x); return x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2; },   // 천천히-빠르게-천천히
-      wave: (t, period) => 0.5 - 0.5 * Math.cos(t / period * Math.PI * 2),         // 0 → 1 → 0을 period초마다 되풀이
-      // 연출용 커서 길. keys = [[초, x(0~1), y(0~1), 누름(0 또는 1)], ...] (x·y는 무대 너비·높이에 대한 비율)
-      // 열쇠 사이는 부드럽게 잇고, 첫 열쇠 전 0.3초 동안 나타나며 마지막 열쇠 뒤 0.4초 동안 사라집니다. 누름이 1인 열쇠에서 짧게 누릅니다
-      // 돌려주는 값 { x, y(px), down(0~1), on(0~1) } → 그대로 api.pointer()에 넘기면 됩니다
-      path(t, keys) {
-        const n = keys.length, first = keys[0], end = keys[n - 1];
-        let x = first[1], y = first[2];
-        if (t >= end[0]) { x = end[1]; y = end[2]; }
-        else for (let i = 0; i < n - 1; i++) {
-          const a = keys[i], b = keys[i + 1];
-          if (t >= a[0] && t < b[0]) { const p = lp.io(lp.seg(t, a[0], b[0])); x = lp.mix(a[1], b[1], p); y = lp.mix(a[2], b[2], p); break; }
-        }
-        let down = 0;
-        keys.forEach(k => { if (k[3]) down = Math.max(down, 1 - clamp(Math.abs(t - k[0]) / 0.16)); });
-        const on = Math.min(lp.seg(t, first[0] - 0.3, first[0]), 1 - lp.seg(t, end[0], end[0] + 0.4));
-        return { x: x * api.W, y: y * api.H, down: down, on: on };
-      },
-      // 연출용 커서(화살표). 실제 페이지(CONFIG.live)에서는 저절로 숨습니다. 돌려주는 값 { el, set(p) } — p는 api.pointer()가 돌려준 값
-      cursor(parent, scale) {
-        const s = api.u * 0.042 * (scale || 1), NS = 'http://www.w3.org/2000/svg';
-        const el = document.createElementNS(NS, 'svg'), body = document.createElementNS(NS, 'path');
-        el.setAttribute('viewBox', '0 0 20 24');
-        el.setAttribute('width', s);
-        el.setAttribute('height', s * 1.2);
-        el.style.cssText = `position:absolute;left:0;top:0;overflow:visible;pointer-events:none;z-index:9;transform-origin:0 0;filter:drop-shadow(0 ${s * 0.06}px ${s * 0.12}px rgba(0,0,0,.35));`;
-        body.setAttribute('d', 'M2 1.6 L2 19.2 L6.6 14.9 L9.6 21.6 L12.7 20.2 L9.8 13.7 L16.2 13.7 Z');
-        body.setAttribute('fill', '#ffffff');
-        body.setAttribute('stroke', '#111111');
-        body.setAttribute('stroke-width', '1.3');
-        body.setAttribute('stroke-linejoin', 'round');
-        el.appendChild(body);
-        parent.appendChild(el);
-        return {
-          el: el,
-          set(p) {
-            el.style.opacity = (p.on * p.fake).toFixed(3);
-            el.style.transform = `translate(${p.x - s * 0.1}px,${p.y - s * 0.08}px) scale(${1 - 0.14 * p.down})`;
-          }
-        };
-      },
-      // 네 갈래 별빛 하나 (반짝임). 아주 작게, 은은하게 쓰세요. 돌려주는 값: 요소 (자리·크기·투명도는 style로)
-      glint(parent, px, color) {
-        const NS = 'http://www.w3.org/2000/svg', el = document.createElementNS(NS, 'svg'), star = document.createElementNS(NS, 'path');
-        el.setAttribute('viewBox', '-10 -10 20 20');
-        el.setAttribute('width', px);
-        el.setAttribute('height', px);
-        el.style.cssText = `position:absolute;left:0;top:0;margin:${-px / 2}px 0 0 ${-px / 2}px;overflow:visible;pointer-events:none;`;
-        star.setAttribute('d', 'M0 -10 C0.7 -2.4 2.4 -0.7 10 0 C2.4 0.7 0.7 2.4 0 10 C-0.7 2.4 -2.4 0.7 -10 0 C-2.4 -0.7 -0.7 -2.4 0 -10 Z');
-        star.setAttribute('fill', color || '#ffffff');
-        el.appendChild(star);
-        parent.appendChild(el);
-        return el;
-      },
-      // 빛줄기가 훑고 지나가는 배경 값 (글자·단추 위의 반짝임). p: 지나간 정도 0~1, angle: 기울기(도), width: 빛 폭(%), alpha: 밝기, color: 'r,g,b'
-      sweep(p, angle, width, alpha, color) {
-        const w = width || 14, c = -w + clamp(p) * (100 + 2 * w), rgb = color || '255,255,255';
-        return `linear-gradient(${angle == null ? 105 : angle}deg, rgba(${rgb},0) ${c - w}%, rgba(${rgb},${alpha == null ? 0.55 : alpha}) ${c}%, rgba(${rgb},0) ${c + w}%)`;
-      },
-      // 유리판 느낌 (backdrop-filter 없이): 반투명 면 + 위쪽 빛 테두리 + 부드러운 그림자. dark = 어두운 바탕 위
-      glass(dark) {
-        return dark
-          ? 'background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.04));box-shadow:inset 0 1px 0 rgba(255,255,255,.38),inset 0 0 0 1px rgba(255,255,255,.12),0 24px 48px -16px rgba(0,0,0,.55);'
-          : 'background:linear-gradient(160deg,rgba(255,255,255,.92),rgba(255,255,255,.62));box-shadow:inset 0 1px 0 #ffffff,inset 0 0 0 1px rgba(255,255,255,.7),0 22px 44px -18px rgba(18,22,36,.35),0 2px 6px rgba(18,22,36,.08);';
-      },
-      // 고운 결(필름 노이즈) 한 겹: 매끈한 그라데이션에 질감을 줘서 고급스럽게. 투명 배경일 때는 만들지 않음(null)
-      grain(parent, alpha) {
-        if (api.clear) return null;
-        const cv = document.createElement('canvas'), g = cv.getContext('2d'), img = g.createImageData(128, 128), r = api.rand(7);
-        cv.width = cv.height = 128;
-        for (let i = 0; i < img.data.length; i += 4) { const v = r() * 255; img.data[i] = img.data[i + 1] = img.data[i + 2] = v; img.data[i + 3] = 255; }
-        g.putImageData(img, 0, 0);
-        const el = document.createElement('div');
-        el.style.cssText = `position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;opacity:${alpha == null ? 0.06 : alpha};background:url(${cv.toDataURL()}) 0 0 / ${Math.max(64, api.u * 0.16)}px repeat;`;
-        parent.appendChild(el);
-        return el;
-      },
-      // 무대 가득 캔버스 한 장. 돌려주는 값 { cv, g, k } — g는 이미 배율이 걸려 있어 px 그대로 그리면 됩니다
-      canvas(parent) {
-        const cv = document.createElement('canvas'), k = Math.min(2, window.devicePixelRatio || 1, 2600 / Math.max(api.W, api.H));
-        cv.width = Math.round(api.W * k);
-        cv.height = Math.round(api.H * k);
-        cv.style.cssText = `position:absolute;left:0;top:0;width:${api.W}px;height:${api.H}px;`;
-        (parent || api.root).appendChild(cv);
-        const g = cv.getContext('2d');
-        g.setTransform(k, 0, 0, k, 0, 0);
-        return { cv: cv, g: g, k: k };
-      },
-      // 글자를 쪼개 가림막 안에 넣음. by: 'line'(\n 기준) | 'word' | 'char'. 돌려주는 값: 움직일 알맹이 목록
-      split(parent, text, by) {
-        const units = by === 'line' ? String(text).split('\n') : by === 'word' ? String(text).split(/(\s+)/) : Array.from(String(text));
-        const parts = [];
-        units.forEach(unit => {
-          if (!unit) return;
-          if (by !== 'line' && /^\s+$/.test(unit)) { parent.appendChild(document.createTextNode(unit.indexOf('\n') >= 0 ? '\n' : ' ')); return; }
-          const mask = document.createElement('span'), core = document.createElement('span');
-          mask.style.cssText = `display:${by === 'line' ? 'block' : 'inline-block'};overflow:hidden;vertical-align:top;padding:.14em 0;margin:-.14em 0;` + (by === 'line' ? '' : 'white-space:pre;');
-          core.style.cssText = `display:${by === 'line' ? 'block' : 'inline-block'};will-change:transform;`;
-          core.textContent = unit;
-          mask.appendChild(core);
-          parent.appendChild(mask);
-          parts.push(core);
-        });
-        return parts;
-      },
-      // 작은 라벨 (대문자, 자간 넓게)
-      label(parent, text, px, color) {
-        const el = document.createElement('span');
-        el.textContent = text;
-        el.style.cssText = `display:block;font:600 ${px}px/1.2 ${lp.face('Pretendard Variable')};letter-spacing:.14em;text-transform:uppercase;color:${color || api.fg};white-space:nowrap;`;
-        parent.appendChild(el);
-        return el;
-      },
-      // 미리보기용 스크롤 진행 0~1: 한 바퀴(loop초) 안에서 천천히 끝까지 내려갔다가 잠깐 머물고, 마지막에 처음으로 감김 → api.scroll()에 넘기면 됩니다
-      demoScroll(t, loop) {
-        t = ((t % loop) + loop) % loop;
-        return t < loop * 0.82 ? lp.io(lp.seg(t, loop * 0.06, loop * 0.74)) : 1 - lp.io(lp.seg(t, loop * 0.86, loop));
-      }
-    };
-    return lp;
-  }
-
-  function lbStage(api) {
+  // ② 모션: 입자 모여 이름
+  function br2Kit(api) {
     const W = api.W, H = api.H, u = api.u;
-    const hex = c => /^#[0-9a-f]{6}$/i.test(c) ? c : '#000000';
-    const lum = c => { c = hex(c); return (parseInt(c.slice(1, 3), 16) * 299 + parseInt(c.slice(3, 5), 16) * 587 + parseInt(c.slice(5, 7), 16) * 114) / 1000; };
-    return {
+    const clamp = x => Math.max(0, Math.min(1, x));
+    const rgb = c => /^#[0-9a-f]{6}$/i.test(c) ? [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16)) : [128, 128, 128];
+    const light = c => { const v = rgb(c); return (v[0] * 299 + v[1] * 587 + v[2] * 114) / 1000; };   // 색의 밝기 0~255
+    const ground = api.clear ? 255 - light(api.fg) : light(api.bg);   // 바탕의 밝기 (투명 배경이면 글자색의 반대쪽으로 봄)
+    const NS = 'http://www.w3.org/2000/svg';
+    const k = {
       W: W, H: H, u: u,
-      wide: W / H > 1.2,                                   // 가로로 긴 화면
-      tall: H / W > 1.2,                                   // 세로로 긴 화면 (휴대폰)
-      dark: api.clear || lum(api.bg) < 128,                // 어두운 바탕인가 (투명 배경이면 밝은 글자를 쓰므로 어두운 쪽)
-      // 투명 배경일 때 밝은 영상·어두운 영상 어디에 얹어도 글자가 읽히게 하는 그림자
-      shade: api.clear ? 'text-shadow:0 1px 2px rgba(0,0,0,.45),0 0 18px rgba(0,0,0,.28);' : '',
-      drop: api.clear ? 'drop-shadow(0 1px 2px rgba(0,0,0,.5)) drop-shadow(0 0 12px rgba(0,0,0,.25))' : '',
-      // #rrggbb 색에 투명도를 입힘
-      alpha(c, a) { c = hex(c); return `rgba(${parseInt(c.slice(1, 3), 16)},${parseInt(c.slice(3, 5), 16)},${parseInt(c.slice(5, 7), 16)},${a})`; },
-      // 글자색(api.fg)에 투명도. 투명 배경일 때는 어떤 영상 위에서도 보이게 덜 투명하게
-      tint(a) { const c = hex(api.fg), k = api.clear ? 0.5 + a * 0.5 : a; return `rgba(${parseInt(c.slice(1, 3), 16)},${parseInt(c.slice(3, 5), 16)},${parseInt(c.slice(5, 7), 16)},${k})`; },
-      // 투명 배경일 때 판(입력창·타일·칩)을 보이게 하는 반투명 어두운 면
-      plate: api.clear ? 'background:rgba(16,18,24,.5);box-shadow:inset 0 0 0 1px rgba(255,255,255,.3),0 8px 24px -10px rgba(0,0,0,.5);' : '',
-      // 요소 하나 (css: 인라인 스타일, text: 글자)
-      div(parent, css, text, tag) {
-        const el = document.createElement(tag || 'div');
-        el.style.cssText = css || '';
-        if (text != null) el.textContent = text;
-        parent.appendChild(el);
-        return el;
+      side: W / H > 1.15,                              // 가로 화면
+      tall: H / W > 1.3,                               // 세로로 긴 화면
+      pad: Math.round(u * 0.08),                       // 화면 가장자리 여백
+      hair: Math.max(1, Math.round(u / 420)),          // 가는 줄 굵기
+      dark: ground < 128,                              // 바탕이 어두운지
+      clamp: clamp,
+      seg: (t, a, b) => clamp((t - a) / (b - a)),      // t가 a~b 사이 어디쯤인지 0~1로
+      mix: (a, b, p) => a + (b - a) * p,
+      out: x => 1 - Math.pow(1 - clamp(x), 4),         // 빠르게 출발해 부드럽게 멈춤
+      expo: x => { x = clamp(x); return x >= 1 ? 1 : 1 - Math.pow(2, -10 * x); },   // 더 급하게 출발해 길게 멈춤
+      io: x => { x = clamp(x); return x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2; },   // 천천히-빠르게-천천히
+      sine: x => 0.5 - 0.5 * Math.cos(Math.PI * clamp(x)),                              // 아주 부드럽게 켜짐
+      tint: (c, a) => 'rgba(' + rgb(c).join(',') + ',' + (+a).toFixed(3) + ')',          // 색을 반투명하게
+      blend: (a, b, p) => { const x = rgb(a), y = rgb(b); return '#' + x.map((v, i) => Math.round(v + (y[i] - v) * clamp(p)).toString(16).padStart(2, '0')).join(''); },   // 두 색을 섞음
+      shade: a => (ground < 128 ? 'rgba(0,0,0,' : 'rgba(255,255,255,') + a + ')',       // 바탕 쪽 그림자 색
+      face: fam => '"' + fam + '","Pretendard Variable","Pretendard",sans-serif',      // 글꼴 이름 (없는 글자는 프리텐다드로)
+      font: (fam, weight, px) => weight + ' ' + (+px).toFixed(2) + 'px ' + k.face(fam),  // 캔버스용 글꼴 값
+      el(parent, css, text, tag) {
+        const e = document.createElement(tag || 'div');
+        e.style.cssText = css || '';
+        if (text !== undefined) e.textContent = text;
+        parent.appendChild(e);
+        return e;
       },
-      // 글줄 알맹이들을 한 줄로 두고(줄바꿈 안 함), 가장 긴 줄이 maxW를 넘으면 글자 크기를 줄임. 돌려주는 값: 새 글자 크기(px)
-      fit(el, cores, maxW) {
-        cores.forEach(c => { c.style.display = 'inline-block'; c.style.whiteSpace = 'pre'; });
-        const fs = parseFloat(el.style.fontSize) || 16, w = Math.max.apply(null, cores.map(c => c.offsetWidth).concat([1]));
-        if (w > maxW) el.style.fontSize = fs * maxW / w + 'px';
-        return w > maxW ? fs * maxW / w : fs;
+      // 무대 전체를 덮는 판. 투명 배경이면 판 전체에 옅은 그림자를 둠 (영상 위에 얹어도 읽히게)
+      layer: () => (k.top = k.el(api.root, `position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;color:${api.fg};font-family:${k.face('Pretendard Variable')};-webkit-font-smoothing:antialiased;` +
+        (api.clear ? `filter:drop-shadow(0 1px 1.5px ${k.shade(0.5)}) drop-shadow(0 ${(u * 0.008).toFixed(1)}px ${(u * 0.03).toFixed(1)}px ${k.shade(0.3)});` : ''))),
+      // 빛·빛망울을 둘 판: 투명 배경일 때도 그림자를 두지 않음 (빛에 그림자가 지면 탁해 보임). front면 글자 판 앞에, 아니면 뒤에
+      glow(front) {
+        const e = document.createElement('div');
+        e.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;pointer-events:none;';
+        api.root.insertBefore(e, front ? null : k.top || null);
+        return e;
       },
-      // 무대(api.root) 기준으로 요소의 자리 { x, y, w, h } (레이아웃 값이라 움직이는 중에도 그대로)
-      place(el) {
-        let x = 0, y = 0;
-        for (let e = el; e && e !== api.root; e = e.offsetParent) { x += e.offsetLeft; y += e.offsetTop; }
-        return { x: x, y: y, w: el.offsetWidth, h: el.offsetHeight };
+      // 어두운 무대: 가운데가 아주 옅게 밝고 가장자리가 가라앉는 바탕 (투명 배경이면 그리지 않음). 늘 맨 아래에 깔림
+      stage() {
+        if (api.clear) return null;
+        const glow = k.dark ? k.blend(api.colors[4], api.deep, 0.5) : api.colors[1], e = document.createElement('div');
+        e.style.cssText = `position:absolute;left:0;top:0;width:100%;height:100%;background:` +
+          `radial-gradient(${W > H ? '62% 78%' : '95% 52%'} at 50% 47%,${k.tint(glow, k.dark ? 0.42 : 0.6)},${k.tint(glow, 0)} 72%),` +
+          `radial-gradient(130% 120% at 50% 50%,rgba(0,0,0,0) 52%,${k.dark ? 'rgba(0,0,0,.5)' : k.tint(api.colors[2], 0.45)} 100%);`;
+        api.root.insertBefore(e, api.root.firstChild);
+        return e;
+      },
+      svg(parent, css, vb) {
+        const e = document.createElementNS(NS, 'svg');
+        if (vb) e.setAttribute('viewBox', vb);
+        e.style.cssText = 'position:absolute;left:0;top:0;overflow:visible;' + (css || '');
+        parent.appendChild(e);
+        return e;
+      },
+      // 무대를 가득 채우는 캔버스 (그리는 좌표는 CSS 픽셀)
+      canvas(parent) {
+        const dpr = Math.min(2, window.devicePixelRatio || 1), cv = document.createElement('canvas');
+        cv.width = Math.max(1, Math.round(W * dpr));
+        cv.height = Math.max(1, Math.round(H * dpr));
+        cv.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:100%;display:block;';
+        (parent || api.root).appendChild(cv);
+        const c = cv.getContext('2d');
+        c.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return c;
+      },
+      // 캔버스로만 쓰는 글꼴도 불러오도록 보이지 않는 글자를 하나 둠
+      need(parent, fam, weight, text) {
+        k.el(parent, `position:absolute;left:0;top:0;opacity:0;pointer-events:none;white-space:pre;font:${weight} 20px/1 ${k.face(fam)};`, text);
+      },
+      // 글자의 실제 높이: 글줄 맨 위에서 글자 아랫면까지 (line: 줄 높이 배수)
+      foot(fam, weight, px, text, line) {
+        const c = document.createElement('canvas').getContext('2d');
+        c.font = k.font(fam, weight, px);
+        c.textBaseline = 'alphabetic';
+        const m = c.measureText(text || '가');
+        const fa = m.fontBoundingBoxAscent || px * 0.88, fd = m.fontBoundingBoxDescent || px * 0.24, ad = m.actualBoundingBoxDescent || px * 0.1;
+        return (px * line - (fa + fd)) / 2 + fa + ad;
+      },
+      // 글줄의 폭이 room을 넘지 않게 글자 크기를 정함 (px에서 시작해 넘치면 줄임)
+      fit(el, room, px, tall) {
+        el.style.fontSize = px + 'px';
+        const w = Math.max(el.scrollWidth, el.offsetWidth), h = el.offsetHeight;
+        const f = Math.min(1, room / (w || room), tall ? tall / (h || tall) : 1);
+        if (f < 1) { px = Math.floor(px * f * 20) / 20; el.style.fontSize = px + 'px'; }
+        return px;
+      },
+      // 글자를 한 자씩 span으로 (빈칸도 자리를 지킴)
+      chars(parent, text) {
+        return Array.from(String(text)).map(ch => k.el(parent, 'display:inline-block;white-space:pre;will-change:transform;', ch, 'span'));
+      },
+      // 이름(큰 글자) + 아래 작은 글자. o: { fam, weight, px, room, track, split, color, subk }. 돌려준 값의 put(x, y, align)으로 자리를 정함
+      words(parent, title, sub, o) {
+        const color = o.color || api.fg;
+        const name = k.el(parent, `position:absolute;left:0;top:0;white-space:pre;font:${o.weight || 700} ${o.px}px/1.18 ${k.face(o.fam || 'Pretendard Variable')};letter-spacing:${o.track == null ? -0.03 : o.track}em;color:${color};`);
+        const parts = o.split ? k.chars(name, title) : null;
+        if (!o.split) name.textContent = title;
+        const px = k.fit(name, o.room, o.px);
+        let s = null, sp = 0;
+        if (sub) {
+          sp = Math.max(7.5, px * (o.subk || 0.24));
+          s = k.el(parent, `position:absolute;left:0;top:0;white-space:pre;font:600 ${sp}px/1.2 ${k.face('Pretendard Variable')};letter-spacing:.42em;color:${k.tint(color, 0.6)};`, sub);
+          sp = k.fit(s, o.room, sp);
+        }
+        const r = { name: name, sub: s, parts: parts, px: px, sp: sp, nw: name.offsetWidth, nh: name.offsetHeight, sw: s ? s.offsetWidth - sp * 0.42 : 0, sh: s ? s.offsetHeight : 0, gap: s ? px * 0.2 : 0 };
+        r.w = Math.max(r.nw, r.sw);
+        r.h = r.nh + r.gap + r.sh;
+        r.put = (x, y, align) => {
+          const c = align === 'center';
+          r.nx = c ? x + (r.w - r.nw) / 2 : x;
+          r.ny = y;
+          r.sx = c ? x + (r.w - r.sw) / 2 : x + px * 0.03;
+          r.sy = y + r.nh + r.gap;
+          name.style.left = r.nx + 'px';
+          name.style.top = r.ny + 'px';
+          if (s) { s.style.left = r.sx + 'px'; s.style.top = r.sy + 'px'; s.dataset.mid = c ? '1' : ''; }
+        };
+        return r;
+      },
+      // 캔버스로 그린 이름 아래에 둘 작은 글자 한 줄
+      tag(parent, text, px) {
+        if (!text) return null;
+        const sp = Math.max(7.5, px * 0.21);
+        const e = k.el(parent, `position:absolute;left:0;top:0;white-space:pre;font:600 ${sp}px/1.2 ${k.face('Pretendard Variable')};letter-spacing:.42em;color:${k.tint(api.fg, 0.6)};`, text);
+        k.fit(e, W - k.pad * 2, sp);
+        e.dataset.mid = '1';
+        return e;
+      },
+      place(e, cx, y) {
+        if (!e) return;
+        const sp = parseFloat(e.style.fontSize) || 10;
+        e.style.left = cx - (e.offsetWidth - sp * 0.42) / 2 + 'px';
+        e.style.top = y + 'px';
+      },
+      // 작은 글자가 넓은 자간에서 제자리로 좁혀지며 나타남 (p: 0→1)
+      track(el, p, from) {
+        if (!el) return;
+        const ls = k.mix(from == null ? 0.9 : from, 0.42, k.out(p)), px = parseFloat(el.style.fontSize) || 10;
+        el.style.opacity = k.clamp(p * 1.4).toFixed(3);
+        el.style.letterSpacing = ls.toFixed(3) + 'em';
+        if (el.dataset.mid) el.style.transform = `translate3d(${(-(ls - 0.42) * px * (Array.from(el.textContent).length - 1) / 2).toFixed(2)}px,0,0)`;
       }
     };
+    k.lite = api.fg;                                                  // 빛 색 (어두운 바탕이면 흰색)
+    k.silver = k.blend(api.fg, api.colors[3], 0.3);                   // 은빛 (빛 색보다 조금 차가움)
+    k.pop = Math.abs(light(api.accent) - ground) > 28 ? api.accent : api.fg;   // 바탕에 묻히지 않는 포인트 색
+    return k;
   }
-  function lpWeightTitle(api) {
-    const LABEL = 'VREW AI SAMPLER · 2026';                             // 위 작은 라벨
-    const TITLE = '브루 AI 샘플러';                        // 큰 제목 (\n 줄바꿈)
-    const BODY = '그림 한 장이 졸업 영상이 되기까지 · AI 이미지, AI 비디오, AI 목소리, AI 음악';      // 설명
-    const THIN = 700;                                                  // 가장 가는 굵기 (400~1000)
-    const BOLD = 920;                                                  // 커서 바로 아래 굵기 (400~1000)
-    const LOOP = 8;                                                    // 한 바퀴 길이(초)
-    const lp = lpKit(api), S = lbStage(api), W = S.W, H = S.H, u = S.u;
-    const head = lp.face('Wanted Sans Variable'), text = lp.face('Pretendard Variable');
-    const fg = api.fg;
-    const all = S.div(api.root, 'position:absolute;left:0;top:0;width:100%;height:100%;');
-    const pad = W * (S.wide ? 0.08 : 0.08);
-    const T = S.wide ? Math.min(W * 0.084, H * 0.17) : S.tall ? W * 0.118 : W * 0.1;
-    const box = S.div(all, `position:absolute;left:${pad}px;top:0;color:${fg};${S.shade}`);
-    const label = lp.label(box, LABEL, Math.max(T * 0.17, u * 0.018), fg);
-    label.style.cssText += `opacity:.55;margin-bottom:${T * 0.36}px;`;
-    const title = S.div(box, `font:${THIN} ${T}px/1.16 ${head};letter-spacing:-0.02em;white-space:pre;`);
-    // 글자마다 칸을 가장 굵을 때 폭으로 고정 (굵기가 바뀌어도 줄이 흔들리지 않게)
-    const cells = [];
-    TITLE.split('\n').forEach((line, li) => {
-      const row = S.div(title, 'display:block;white-space:nowrap;');
-      Array.from(line).forEach(ch => {
-        const c = S.div(row, `display:inline-block;text-align:center;font-weight:${BOLD};`, ch === ' ' ? ' ' : ch, 'span');
-        cells.push({ el: c, sp: ch === ' ', li: li });
-      });
-    });
-    const widest = Math.max.apply(null, Array.from(title.children).map(r => r.offsetWidth));
-    if (widest > W - pad * 2) title.style.fontSize = T * (W - pad * 2) / widest + 'px';
-    cells.forEach(c => { c.w = c.el.offsetWidth * (c.sp ? 0.6 : 1); c.el.style.width = c.w + 'px'; c.el.style.fontWeight = THIN; });
-    const body = S.div(box, `margin-top:${T * 0.42}px;max-width:${T * 7.4}px;font:400 ${Math.max(T * 0.24, u * 0.024)}px/1.6 ${text};letter-spacing:-0.01em;color:${S.tint(0.62)};word-break:keep-all;text-wrap:balance;`, BODY);
-    // 오른쪽 아래 작은 굵기 눈금 (지금 커서 아래 굵기를 보여 줌)
-    const meter = S.div(all, `position:absolute;right:${pad}px;bottom:${H * 0.1}px;display:flex;align-items:center;gap:${u * 0.016}px;font:500 ${u * 0.018}px/1 ${text};letter-spacing:.12em;color:${S.tint(0.5)};font-variant-numeric:tabular-nums;${S.shade}`);
-    S.div(meter, '', 'WEIGHT', 'span');
-    const track = S.div(meter, `position:relative;width:${u * 0.16}px;height:1px;background:${S.tint(0.2)};`, null, 'span');
-    const knob = S.div(track, `position:absolute;left:0;top:${-u * 0.006}px;width:1px;height:${u * 0.013}px;background:${fg};`);
-    const num = S.div(meter, `min-width:2.4em;text-align:right;`, String(THIN), 'span');
-    const bh = box.offsetHeight;
-    box.style.top = H * (S.wide ? 0.47 : S.tall ? 0.4 : 0.46) - bh / 2 + 'px';
-    if (!S.wide) meter.style.display = 'none';
-    cells.forEach(c => { const g = S.place(c.el); c.x = g.x + g.w / 2; c.y = g.y + g.h / 2; });
-    const rowY = Array.from(title.children).map(r => { const g = S.place(r); return g.y + g.h / 2; });
-    const R = W * (S.wide ? 0.13 : 0.24), cursor = lp.cursor(api.root);
+  function br2Particles(api) {
+    const TITLE = '브루 AI 샘플러';   // 이름 (큰 글자)
+    const SUB = '그림 한 장이 졸업 영상이 되기까지';       // 이름 아래 작은 글자
+    const DOTS = 1800;             // 글자를 이루는 입자 수 (600~4000)
+    const LOOP = 12;              // 한 바퀴 길이(초)
+    const k = br2Kit(api), root = k.layer(), W = k.W, H = k.H, u = k.u, side = k.side, fg = api.fg;
+    k.stage(root);
+    const fam = 'Paperlogy', wt = 800;
+    k.need(root, fam, wt, TITLE);
+    const c = k.canvas(root);
+    let px = u * (side ? 0.2 : 0.16);
+    c.font = k.font(fam, wt, px);
+    let tw = c.measureText(TITLE).width || px;
+    const room = W - k.pad * 2.6;
+    if (tw > room) { px *= room / tw; tw = room; }
+    const sub = k.tag(root, SUB, px), sh = sub ? sub.offsetHeight : 0, gap = px * 0.42;
+    const cx = W / 2, cy = (H - (px + (sub ? gap + sh : 0))) / 2 + px * 0.5;
+    k.place(sub, cx, cy + px * 0.5 + gap * 0.7);
+    // 글자 모양에서 입자 자리를 뽑음
+    const ow = Math.max(1, Math.ceil(W)), oh = Math.max(1, Math.ceil(H)), off = document.createElement('canvas');
+    off.width = ow; off.height = oh;
+    const o = off.getContext('2d', { willReadFrequently: true });
+    o.font = k.font(fam, wt, px);
+    o.textAlign = 'center';
+    o.textBaseline = 'middle';
+    o.fillStyle = '#fff';
+    o.fillText(TITLE, cx, cy);
+    const bx0 = Math.max(0, Math.floor(cx - tw / 2 - px * 0.2)), bx1 = Math.min(ow, Math.ceil(cx + tw / 2 + px * 0.2));
+    const by0 = Math.max(0, Math.floor(cy - px * 0.8)), by1 = Math.min(oh, Math.ceil(cy + px * 0.8));
+    const data = o.getImageData(0, 0, ow, oh).data;
+    let fill = 0;
+    for (let y = by0; y < by1; y++) for (let x = bx0; x < bx1; x++) if (data[(y * ow + x) * 4 + 3] > 127) fill++;
+    const want = Math.max(600, Math.min(4000, Math.round(Number(DOTS) || 1800))), step = Math.max(1, Math.sqrt(fill / want));
+    const rnd = api.rand(23), pts = [], dust = [];
+    for (let y = by0; y < by1; y += step) for (let x = bx0; x < bx1; x += step) {
+      const jx = Math.min(ow - 1, (x + rnd() * step) | 0), jy = Math.min(oh - 1, (y + rnd() * step) | 0);
+      if (data[(jy * ow + jx) * 4 + 3] <= 127) continue;
+      pts.push({ tx: jx - cx, ty: jy - cy, sx: (rnd() * 2 - 1) * W * 0.75, sy: (rnd() * 2 - 1) * H * 0.75, sz: (rnd() * 2 - 0.6) * u * 1.1,
+        d: (jx - (cx - tw / 2)) / tw * 0.55 + rnd() * 0.3, ph: rnd() * 6.283, s: 0.7 + rnd() * 0.6, hot: rnd() < 0.06 });
+    }
+    for (let i = 0; i < 110; i++) dust.push({ x: (rnd() * 2 - 1) * W * 0.6, y: (rnd() * 2 - 1) * H * 0.6, z: (rnd() * 2 - 0.5) * u, ph: rnd() * 6.283, s: 0.6 + rnd() });
+    const F = u * 1.5, r0 = Math.max(0.5, step * 0.48);
     const frame = t => {
-      const tt = t % LOOP;
-      // 연출 커서: 첫 줄을 왼쪽→오른쪽, 둘째 줄을 오른쪽→왼쪽
-      const y0 = rowY[0] / H, y1 = rowY[rowY.length - 1] / H, x0 = (cells[0].x - R * 0.3) / W, x1 = Math.min(0.95, (Math.max.apply(null, cells.map(c => c.x)) + R * 0.3) / W);
-      const P = api.pointer(lp.path(tt, [[0.6, x0, y0 + 0.02, 0], [2.6, x1, y0 + 0.02, 0], [3.4, x1, y1 + 0.02, 0], [5.6, x0 + 0.04, y1 + 0.02, 0], [6.4, x0 + 0.1, y1 + 0.12, 0]]));
-      // 마우스가 없을 때: 아주 느린 물결이 한 바퀴에 한 번 글줄을 지남
-      const wx = lp.mix(-0.12, 1.12, tt / LOOP) * W;
-      let peak = 0;
-      cells.forEach(c => {
-        const d = Math.hypot(c.x - P.x, (c.y - P.y) * 1.6), kp = Math.exp(-(d / R) * (d / R)) * P.on;
-        const ki = Math.exp(-Math.pow((c.x - wx) / (R * 1.2), 2)) * 0.5 * (1 - P.on);
-        const k = Math.max(kp, ki);
-        peak = Math.max(peak, kp);
-        c.el.style.fontWeight = Math.round(THIN + (BOLD - THIN) * k);
-        c.el.style.opacity = (0.8 + 0.2 * k).toFixed(3);
+      t %= LOOP;
+      c.globalCompositeOperation = 'source-over';
+      c.clearRect(0, 0, W, H);
+      const solid = k.io(k.seg(t, 2.5, 3.5)), fade = k.seg(t, 0, 0.6);
+      if (solid > 0) {
+        c.font = k.font(fam, wt, px);
+        c.textAlign = 'center';
+        c.textBaseline = 'middle';
+        const gg = c.createLinearGradient(0, cy - px * 0.5, 0, cy + px * 0.5);
+        gg.addColorStop(0, k.tint(fg, solid * 0.95));
+        gg.addColorStop(1, k.tint(k.silver, solid * 0.75));
+        c.fillStyle = gg;
+        c.fillText(TITLE, cx, cy);
+      }
+      c.globalCompositeOperation = 'lighter';
+      // 떠도는 먼지 (모이지 않음)
+      c.fillStyle = k.silver;
+      dust.forEach(q => {
+        const z = q.z + Math.sin(t * 0.3 + q.ph) * u * 0.1, s = F / (F + Math.max(z, -F * 0.5)), rr = r0 * q.s * s * 0.9;
+        c.globalAlpha = fade * 0.28 * (0.6 + 0.4 * Math.sin(t * 1.3 + q.ph));
+        c.fillRect(cx + (q.x + Math.sin(t * 0.4 + q.ph) * u * 0.04) * s - rr, cy + (q.y + Math.cos(t * 0.35 + q.ph) * u * 0.03) * s - rr, rr * 2, rr * 2);
       });
-      const now = Math.round(THIN + (BOLD - THIN) * peak);
-      knob.style.transform = `translateX(${(peak * u * 0.16).toFixed(1)}px)`;
-      if (num.textContent !== String(now)) num.textContent = String(now);
-      cursor.set(P);
+      [false, true].forEach(hot => {
+        c.fillStyle = hot ? k.pop : k.lite;
+        pts.forEach(q => {
+          if (q.hot !== hot) return;
+          const e = k.io(k.seg(t, 0.35 + q.d, 1.95 + q.d));
+          const a = (1 - e) * 1.7, ca = Math.cos(a), sa = Math.sin(a);
+          const x0 = q.sx * ca - q.sz * sa, z0 = q.sx * sa + q.sz * ca;
+          const X = k.mix(x0, q.tx, e), Y = k.mix(q.sy + Math.sin(t * 0.6 + q.ph) * u * 0.02, q.ty, e), Z = Math.max(-F * 0.55, k.mix(z0, 0, e));
+          const s = F / (F + Z), rr = r0 * q.s * Math.min(2.4, s) * k.mix(1.3, 1, e);
+          const twk = e >= 1 ? k.mix(1, 0.5, solid) * (0.72 + 0.28 * Math.sin(t * 2.2 + q.ph * 3)) : 1;
+          c.globalAlpha = fade * k.mix(0.28, 1, e) * twk;
+          c.fillRect(cx + X * s - rr, cy + Y * s - rr, rr * 2, rr * 2);
+        });
+      });
+      c.globalAlpha = 1;
+      c.globalCompositeOperation = 'source-over';
+      k.track(sub, k.seg(t, 2.7, 3.6));
     };
     frame.fonts = true;
+    frame.loop = LOOP;
     return frame;
   }
 
@@ -478,7 +480,7 @@
     };
   }
 
-  qmEngine(document.getElementById('qm-lp-weight-title'), CONFIG, lpWeightTitle);
+  qmEngine(document.getElementById('qm-brc-particle-form'), CONFIG, br2Particles);
 })();
 </script>
 </body>

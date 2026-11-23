@@ -604,3 +604,13 @@ ol.do li::before { content: counter(d); position: absolute; left: 14px; top: 12p
 .shots2 .thumb { position: relative; display: block; border-radius: 12px; overflow: hidden; height: 170px; }
 .shots2 .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
 .finale .side p { font-size: 15.5px; line-height: 24px; }
+
+/* v6: 표지는 모션랩 「입자 모여 이름」(어두운 바탕) */
+.slide.cover { background: #06070a; }
+.cover .cv-left .lab { background: #06070a; }
+.cover .cv-left .cta { margin: 0 0 0 0; justify-content: center; }
+.cover .btn.ghost { background: transparent; border-color: rgba(255, 255, 255, .42); color: #fff; }
+.cover .btn.ghost:hover { background: rgba(255, 255, 255, .08); }
+.cover .chip { background: rgba(255, 255, 255, .09); color: rgba(255, 255, 255, .72); }
+.cover .cv-right .screen { border-color: rgba(255, 255, 255, .16); box-shadow: 0 18px 40px rgba(0, 0, 0, .5); }
+.cover .cv-right .strip .card { border-color: rgba(255, 255, 255, .14); background: #101214; }
