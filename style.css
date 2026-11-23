@@ -660,3 +660,9 @@ h2 small { font-size: 20px; font-weight: 600; color: var(--text-2); margin-left:
 .bgm .b .row2 { display: flex; gap: 6px; margin-top: auto; }
 .bgm .b .row2 .btn { margin-top: 0; }
 .bgm .b .pp { font-size: 12.5px; line-height: 19px; }
+
+/* v12 */
+.dlcard .btn.sm { height: 28px; font-size: 12.5px; padding: 0 9px; }
+.bgm .b { gap: 4px; padding: 12px 16px 10px; }
+.bgm .b .pp { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; flex: 0 0 auto; padding: 7px 10px; }
+.bgm .b .au audio { height: 32px; }

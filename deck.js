@@ -233,7 +233,7 @@ slide('AI 배경 음악 ① 잘 뽑는 요령', 'AI 배경 음악', '', () => {
 slide('AI 배경 음악 ② 요즘 쇼츠·릴스 음악', 'AI 배경 음악', '', () => {
   const cards = BGM_TYPES.map((b, n) => { const s = BGM_SAMPLES.find(x => x.type === n);
     return `<div class="b"><h4>${n + 1}. ${b.name}</h4><div class="w">${b.where}</div><div class="f">${b.feel}</div>${b.ex ? `<div class="e">예: ${esc(b.ex)}</div>` : ''}${s ? `<div class="au"><span class="okmark">브루 AI 음악 · ${s.len}</span><audio controls preload="none" src="${A}${s.src}"></audio></div>` : ''}${b.p ? `<div class="pp">${esc(b.p)}</div><div class="row2">${copyBtn(b.p, '프롬프트 복사')}${s ? `<a class="btn ghost" href="${A}${s.src}" download="브루AI음악_${b.name.replace(/[ ·]+/g, '-')}.mp3">내려받기</a>` : ''}</div>` : `<div class="pp">${b.hint}</div>`}</div>`; }).join('');
-  return `${head('브루 AI 음악', '', '', `<span class="chip">2026. 11. 23. 조사</span>`)}<h2>요즘 쇼츠·릴스에서 <em>자주 들리는</em> 배경음악</h2><div class="body">
+  return `${head('브루 AI 음악', '', '', `<span class="chip">2026. 11. 23. 조사</span>`)}<h2>요즘 쇼츠·릴스에서 <em>자주 들리는</em> 배경음악 <small>유형마다 브루 AI 음악으로 뽑은 곡을 바로 들어 보세요</small></h2><div class="body">
     <div class="bgm">${cards}</div>
     <p class="src">${T.types_src} 출처: <a href="https://newsroom.tiktok.com/tiktok-reveals-the-top-artists-and-songs-of-2025?lang=en" target="_blank" rel="noopener">틱톡 2025 결산</a> · <a href="https://newsroom.tiktok.com/tiktoks-global-and-us-song-of-the-summer-2026-katy-perrys-the-one-that-got-away?lang=en" target="_blank" rel="noopener">틱톡 2026 여름 결산</a> · <a href="https://buffer.com/resources/trending-songs-tiktok/" target="_blank" rel="noopener">Buffer 틱톡 인기 소리</a></p>
   </div>`;
@@ -261,7 +261,7 @@ slide('자료 내려받기', '정리', '', () => {
     ${v(FINAL(), '완성본 20초', T.dl_final, 'mp4 · 20초 · 720p')}
     <div class="dlcard wide"><div class="txt"><h3>${icon('download', 30)} 따라 하기 묶음</h3><p>주인공 그림 1장, 콘티 4장, 대본, 자막 파일</p><div class="row"><a class="btn primary" href="${A}vrew-sampler-pack.zip" download="브루샘플러-따라하기-묶음.zip">묶음 내려받기</a><span class="meta">zip</span></div></div></div>
     <div class="dlcard wide"><div class="txt"><h3>${icon('worksheet', 30)} 프롬프트 전체</h3><p>그림 · 콘티 · 영상 · 배경 음악 프롬프트를 글 파일 하나로</p><div class="row"><button class="btn primary" data-dltxt>프롬프트 내려받기</button><span class="meta">txt</span></div></div></div>
-    <div class="dlcard wide"><div class="txt"><h3>${icon('download', 30)} 브루 AI 음악 3곡</h3><p>브루 AI 음악으로 만든 연주곡. 눌러서 받습니다.</p><div class="row" style="flex-wrap:wrap;gap:6px">${BGM_READY.map(r => `<a class="btn ghost" href="${A}${r[2]}" download="브루AI음악_${r[0].replace(/[ ·]+/g, '-')}.mp3">${r[0]}</a>`).join('')}</div></div></div>
+    <div class="dlcard wide"><div class="txt"><h3>${icon('download', 30)} 브루 AI 음악 9곡</h3><p>브루 AI 음악으로 만든 연주곡. 눌러서 받습니다.</p><div class="row" style="flex-wrap:wrap;gap:6px">${BGM_SAMPLES.map(x => `<a class="btn ghost sm" href="${A}${x.src}" download="브루AI음악_${BGM_TYPES[x.type].name.replace(/[ ·]+/g, '-')}.mp3">${BGM_TYPES[x.type].name}</a>`).join('')}</div></div></div>
   </div>${take(T.dl_take)}</div>`;
 });
 
