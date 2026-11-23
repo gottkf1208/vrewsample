@@ -175,6 +175,19 @@ slide('3단계 ③ 완성된 콜라주 영상', '3단계 콜라주 영상', '', 
   </div></div>`;
 });
 
+
+// ── 3단계 ④ 브루에서 직접 뽑은 종이비행기 (카메라 움직임 테스트)
+slide('3단계 ④ 브루에서 뽑은 종이비행기', '3단계 콜라주 영상', '', () => {
+  const item = { kind: 'vid', src: `${A}vrew-plane-seedance25.mp4`, name: '종이비행기 인트로 · 브루 Seedance 2.5', dl: '브루 Seedance 종이비행기 5초', by: '브루 AI 비디오 · Seedance 2.5 · 2026. 11. 23. 생성', chips: ['5초 · 720p · 소리', '16:9', '450 크레딧'], note: plainText(T.plane_1), prompt: P.plane };
+  const ui = reg({ kind: 'img', src: `${A}vrew-ui-video.jpg`, name: '브루 AI 비디오 창', by: '브루 4.9.1 화면 · 2026. 11. 23.', chips: ['Seedance 2.5', '5초 · 720p · 16:9'], note: '프롬프트를 넣고 비디오 생성 단추를 누르기 직전의 화면입니다.', prompt: P.plane });
+  const blk = reg({ kind: 'img', src: `${A}vrew-ui-blocked.jpg`, name: '생성이 제한되었어요', by: '브루 4.9.1 화면 · Seedance 2.0 Mini', chips: ['크레딧 차감 없음'], note: plainText(T.plane_3) });
+  return `${head('3단계 · 브루에서 직접 생성', '', '', path('삽입', 'AI 비디오', 'Seedance 2.5') + dlBtn(item, '영상 내려받기') + pbtn('넣은 프롬프트', P.plane))}<h2>브루에서 뽑은 <em>종이비행기</em> · 카메라 움직임 테스트</h2><div class="body"><div class="finale">
+    ${plain(item, 'big pick', `<div class="txt"><div class="row"><span class="name">${esc(item.name)}</span><span class="meta"><b>450</b> 크레딧 · 5초 · 720p · 누르면 소리와 함께 크게</span></div></div>`)}
+    <div class="side"><h3>브루에서 뽑아 보니</h3><p>${T.plane_1}</p><p>${T.plane_2}</p><p>${T.plane_3}</p>
+      <div class="shots2"><button class="thumb card" data-i="${ui}"><img src="${A}vrew-ui-video.jpg" alt=""><span class="tag dark">생성 직전 화면</span></button><button class="thumb card" data-i="${blk}"><img src="${A}vrew-ui-blocked.jpg" alt=""><span class="tag" style="background:var(--pink);color:#fff">Mini는 막힘</span></button></div></div>
+  </div></div>`;
+});
+
 // ── 4단계 세 쪽: 자막 · AI 목소리 · 배경 음악
 const SAY = ['3.0초', '3.5초', '3.4초', '4.0초'];
 const scriptTable = withSay => `<table class="script">${SCRIPT.map((s, n) => `<tr><td class="t">${s[0]}</td><td>${esc(s[1])}</td>${withSay ? `<td class="s">말 ${SAY[n]}</td>` : ''}</tr>`).join('')}</table>`;
@@ -187,7 +200,7 @@ how('4단계 ② AI 목소리', '자막에 <em>AI 목소리</em>를 입힙니다
   () => `<div class="pcard white" style="min-height:0"><div class="top"><h3>한 줄은 3~4초 분량으로</h3>${copyBtn(P.script, '대본 복사')}</div>${scriptTable(true)}
     <div class="faceline big">${face(96, 'headset', 'happy')}<span>장면이 바뀌고 0.5초쯤 뒤에<br>말이 시작되면 자연스럽습니다.</span></div></div>`);
 how('4단계 ③ 배경 음악', '<em>배경 음악</em>을 깔고 음량을 맞춥니다', path('삽입', '배경 음악', 'AI 음악'), ['bgm_do1', 'bgm_do2', 'bgm_do3', 'bgm_do4'], 'bgm_note',
-  () => `<div class="pcard white" style="min-height:0"><div class="top"><h3>졸업 축하 영상용 프롬프트</h3>${copyBtn(P.bgmGrad)}</div><pre class="plainpre">${esc(P.bgmGrad)}</pre>
+  () => `<div class="pcard white" style="min-height:0"><div class="top"><h3>졸업 축하 영상용 프롬프트</h3>${copyBtn(P.bgmGrad)}</div><pre class="plainpre">${esc(P.bgmGrad)}</pre><div class="made"><span class="okmark">이 프롬프트로 브루 AI 음악이 만든 곡</span><audio controls preload="none" src="${A}bgm-graduation.mp3"></audio></div>
     <div class="ba"><button class="card" data-i="${reg(COLLAGE())}"><div class="media"><video data-src="${A}egg-layered.mp4#t=10.5" muted loop playsinline preload="none"></video></div><span class="tag dark">얹기 전 · 3단계 영상</span></button><span class="arrow">→</span><button class="card pick" data-i="${reg(FINAL())}"><div class="media"><video data-src="${A}final.mp4#t=10.5" muted loop playsinline preload="none"></video></div><span class="tag">얹은 뒤 · 완성본</span></button></div></div>`);
 
 // ── 완성
@@ -203,11 +216,12 @@ slide('완성 · 졸업 축하 영상', '4단계 완성', '', () => {
 slide('AI 배경 음악 ① 잘 뽑는 요령', 'AI 배경 음악', '', () => {
   const tips = BGM_TIPS.map((t, n) => `<div class="tip"><div class="n">TIP ${n + 1}</div><h4>${t}</h4><p>${T['tip_' + (n + 1)]}</p></div>`).join('');
   return `${head('브루 AI 음악', '', '', path('삽입', '배경 음악', 'AI 음악') + copyBtn(P.bgmGrad, '졸업 영상용 프롬프트 복사'))}<h2>AI 배경 음악, <em>이렇게 적으면</em> 잘 나옵니다</h2><div class="body">
-    <div style="display:grid;grid-template-columns:1fr 120px;gap:16px;align-items:center">
+    <div style="display:grid;grid-template-columns:1fr 150px;gap:16px;align-items:center">
       <div><div class="formula"><span>어디에 쓸지</span><i>+</i><span>장르</span><i>+</i><span>분위기</span><i>+</i><span>악기</span><i>+</i><span>빠르기(BPM)</span><i>+</i><span>가사 없이 / 있게</span><i>+</i><span>흐름</span></div>
-      <p class="src" style="margin-top:8px">${T.bgm_lead} · <a href="${NOTE.music}" target="_blank" rel="noopener">브루 공지 보기</a></p></div>${mo('mo-music.webm', 'momusic')}</div>
+      <div class="paths" style="margin-top:8px"><span class="chip on">생성 모델 Lyria 3 Pro</span><span class="chip">최대 3분</span><span class="chip">한 곡 150 크레딧</span><span class="chip">프롬프트 2,000자까지</span></div>
+      <p class="src" style="margin-top:8px">${T.bgm_lead} · <a href="${NOTE.music}" target="_blank" rel="noopener">브루 공지 보기</a></p></div><button class="thumb card uishot" data-i="${reg({ kind: 'img', src: `${A}vrew-ui-music.jpg`, name: '브루 AI 음악 창', by: '브루 4.9.1 화면 · 2026. 11. 23.', chips: ['Lyria 3 Pro', '한 곡 150 크레딧'], note: '졸업 축하 프롬프트를 넣고 생성 단추를 누르기 직전의 화면입니다.' })}"><img src="${A}vrew-ui-music.jpg" alt="브루 AI 음악 창"><span class="tag dark">실제 화면</span></button></div>
     <div class="tips">${tips}</div>
-    <div class="ready"><div class="bad"><div class="k">이렇게 쓰면 흔들립니다</div><p>신나는 음악 만들어줘</p></div><span class="arrow">→</span>${BGM_READY.map(r => `<div class="good"><div class="k">${r[0]}</div><p>${esc(r[1])}</p>${copyBtn(r[1])}</div>`).join('')}</div>
+    <div class="ready"><div class="bad"><div class="k">이렇게 쓰면 흔들립니다</div><p>신나는 음악 만들어줘</p></div><span class="arrow">→</span>${BGM_READY.map(r => `<div class="good"><div class="k">${r[0]}<span class="okmark">브루 AI 음악 · ${r[3]}</span></div><p>${esc(r[1])}</p><audio controls preload="none" src="${A}${r[2]}"></audio><div class="row2">${copyBtn(r[1], '프롬프트 복사')}<a class="btn ghost" href="${A}${r[2]}" download="브루AI음악_${r[0].replace(/[ ·]+/g, '-')}.mp3">내려받기</a></div></div>`).join('')}</div>
   </div>`;
 });
 slide('AI 배경 음악 ② 요즘 쇼츠·릴스 음악', 'AI 배경 음악', '', () => {
@@ -241,14 +255,14 @@ slide('자료 내려받기', '정리', '', () => {
     ${v(FINAL(), '완성본 20초', T.dl_final, 'mp4 · 20초 · 720p')}
     <div class="dlcard wide"><div class="txt"><h3>${icon('download', 30)} 따라 하기 묶음</h3><p>주인공 그림 1장, 콘티 4장, 대본, 자막 파일</p><div class="row"><a class="btn primary" href="${A}vrew-sampler-pack.zip" download="브루샘플러-따라하기-묶음.zip">묶음 내려받기</a><span class="meta">zip</span></div></div></div>
     <div class="dlcard wide"><div class="txt"><h3>${icon('worksheet', 30)} 프롬프트 전체</h3><p>그림 · 콘티 · 영상 · 배경 음악 프롬프트를 글 파일 하나로</p><div class="row"><button class="btn primary" data-dltxt>프롬프트 내려받기</button><span class="meta">txt</span></div></div></div>
-    <div class="dlcard wide"><div class="txt"><h3>${icon('camera', 30)} 그림과 영상 하나씩</h3><p>그림이나 영상을 눌러 크게 연 뒤 오른쪽의 <b>내려받기</b> 단추를 누릅니다.</p></div></div>
+    <div class="dlcard wide"><div class="txt"><h3>${icon('download', 30)} 브루 AI 음악 3곡</h3><p>브루 AI 음악으로 만든 연주곡. 눌러서 받습니다.</p><div class="row" style="flex-wrap:wrap;gap:6px">${BGM_READY.map(r => `<a class="btn ghost" href="${A}${r[2]}" download="브루AI음악_${r[0].replace(/[ ·]+/g, '-')}.mp3">${r[0]}</a>`).join('')}</div></div></div>
   </div>${take(T.dl_take)}</div>`;
 });
 
 // ── 곧 추가 + 확인 기록
 slide('COMING SOON · 확인 기록', '정리', '', () => `${head('정리', '', '', `<span class="chip">${CHECKED}</span>`)}<h2>다음에 <em>더할 것</em>과 확인 기록</h2><div class="body"><div class="soon">
     <div class="box hold">${mo('mo-soon.webm', '')}<h3>모션 따라 하기 · 춤 따라 하기</h3><p>${T.soon_body}</p></div>
-    <div class="box"><h3>이렇게 확인했습니다</h3><ul><li>${T.rec_1}</li><li>${T.rec_2}</li><li>${T.rec_3}</li><li>${T.rec_4}</li><li>${T.rec_5}</li></ul>
+    <div class="box"><h3>이렇게 확인했습니다</h3><ul><li>${T.rec_1}</li><li>${T.rec_2}</li><li>${T.rec_3}</li><li>${T.rec_4}</li><li>${T.rec_6}</li><li>${T.rec_5}</li></ul>
       <div class="faceline big" style="margin-top:auto">${face(110, 'headset', 'excited')}<span>${T.bye}</span></div></div>
   </div></div>`);
 
