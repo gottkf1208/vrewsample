@@ -39,8 +39,7 @@ const vp = (title, tabs, rows, btn, cr) => `<div class="vp"><div class="vp-top">
 const opt = (...xs) => xs.map(x => `<span class="vp-opt">${x}</span>`).join('');
 const plainText = h => h.replace(/<[^>]+>/g, '');
 
-const HERO_IT = { kind: 'img', src: `${A}m06-gpt25.jpg`, name: '주인공 · 어린 왕자', by: 'GPT Image 2.5 · 1단계', chips: ['수채화 그림책 삽화', '세로 3:4'], note: plainText(T.cmp_gpt), use: '2단계에서 참고 이미지로 넣습니다', prompt: P.imgNoTitle };
-const NANO_IT = { kind: 'img', src: `${A}m08-nano21.jpg`, name: '어린 왕자 · Nano Banana 2.1', by: 'Nano Banana 2.1 · 같은 프롬프트', chips: ['수채화 그림책 삽화', '세로 3:4'], note: plainText(T.cmp_nano), use: '아기자기한 삽화', prompt: P.img };
+const HERO_IT = { kind: 'img', src: `${A}vh-gpt26-sunburst.jpg`, name: '주인공 · 어린 왕자', by: '브루 AI 이미지 · GPT Image 2.6 Sunburst', chips: ['일반 · Low · 3:4', '10 크레딧', '브루에서 직접 생성'], note: plainText(T.cmp_gpt), use: '2단계에서 참고 이미지로 넣습니다', prompt: P.imgNoTitle };
 const shotItem = n => { const s = EGG_SHOTS[n]; return { kind: 'img', src: `${A}${s.img}.jpg`, name: `장면 ${n + 1} · ${s.name}`, by: '2단계 · 콘티 (주인공 그림을 참고 이미지로)', chips: ['16:9', s.t], note: s.story, use: `카메라: ${s.cam}`, prompt: s.prompt, tag: s.t }; };
 const COLLAGE = () => ({ kind: 'vid', src: `${A}egg-layered.mp4`, name: '콜라주 영상 · 어린 왕자의 졸업 비행', dl: '어린왕자 졸업 콜라주 20초 자막없음', by: '3단계 · Seedance 2.5 · 콘티 4장', chips: ['20초 · 720p · 소리', '16:9'], note: plainText(T.dl_20), prompt: P.eggVideo });
 const FINAL = () => ({ kind: 'vid', src: `${A}final.mp4`, name: '완성 · 어린 왕자의 졸업 축하 영상', dl: '어린왕자 졸업 축하 영상 20초 완성본', by: '4단계 · 자막 + AI 목소리 + 배경 음악', chips: ['20초 · 720p', '자막 4줄 · 내레이션'], note: plainText(T.dl_final), prompt: P.script });
@@ -57,7 +56,7 @@ slide('표지', '시작', 'cover', () => {
     <div class="cta"><button class="btn primary big" data-go="2">샘플러 보기</button><button class="btn ghost big" data-toc>목차</button><span class="chip">${CHECKED} · {{n}}쪽</span></div>
   </div><div class="cv-right">
     <button class="screen card" data-i="${f}"><video data-src="${A}final.mp4" muted loop playsinline preload="none"></video><span class="tag dark">완성 영상 · 20초</span><span class="zoom">크게 보기</span></button>
-    <div class="strip">${th(a, 'm06-gpt25.jpg', '① 주인공')}${th(b, 'cut-3.jpg', '② 콘티')}${th(c, 'cut-4.jpg', '③ 콜라주')}</div>
+    <div class="strip">${th(a, 'vh-gpt26-sunburst.jpg', '① 주인공')}${th(b, 'cut-3.jpg', '② 콘티')}${th(c, 'cut-4.jpg', '③ 콜라주')}</div>
     
   </div></div>`;
 });
@@ -68,7 +67,7 @@ slide('만드는 순서', '시작', '', () => {
   const im = f => `<img src="${A}${f}" alt="">`, vd = f => `<video data-src="${A}${f}" muted loop playsinline preload="none"></video>`;
   return `${head('시작하기 전에', '', '', `<span class="chip">카드를 누르면 그 단계로 갑니다</span>`)}<h2>네 단계로 <em>졸업 영상</em>을 만듭니다</h2><div class="body">
   <div class="steps">
-    ${st('1단계', '1단계', 'camera', '주인공 캐릭터', T.flow_1, path('삽입', 'AI 이미지'), im('m06-gpt25.jpg'))}
+    ${st('1단계', '1단계', 'camera', '주인공 캐릭터', T.flow_1, path('삽입', 'AI 이미지'), im('vh-gpt26-sunburst.jpg'))}
     ${st('2단계', '2단계', 'slides', '만들고 싶은 영상', T.flow_2, path('삽입', 'AI 이미지') + path('참고 이미지'), im('cut-3.jpg'))}
     ${st('3단계', '3단계', 'video', '콜라주 영상', T.flow_3, path('삽입', 'AI 비디오'), vd('egg-layered.mp4#t=6'))}
     ${st('4단계', '4단계', 'mic', '자막 · 목소리 · 음악', T.flow_4, path('자막') + path('AI 목소리') + path('삽입', '배경 음악'), vd('final.mp4#t=15.6'))}
@@ -80,22 +79,19 @@ slide('1단계 ① 주인공 프롬프트', '1단계 주인공', '', () => {
   const i = reg(HERO_IT);
   return `${head('1단계 · 주인공 캐릭터', '', '', path('삽입', 'AI 이미지') + copyBtn(P.imgNoTitle, '프롬프트 복사'))}<h2>주인공 <em>어린 왕자</em>부터 그립니다</h2><div class="body"><div class="tri">
     <div class="side"><h3>브루에서 이렇게</h3><p>${T.s1_sub}</p>${todo('s1_do1', 's1_do2', 's1_do3', 's1_do4')}</div>
-    ${vp('AI 이미지', [], [['생성 모델', '<span class="vp-sel">GPT Image 2.5 Sunburst</span>'], ['프롬프트', `<div class="vp-ta">${clamp(P.imgNoTitle, 150)}</div>`], ['참고 이미지', '<span class="vp-empty">비워 둡니다</span>'], ['설정', opt('일반', 'Low', '3:4')]], '이미지 1장 생성', '5 크레딧 (Low · 일반)')}
+    ${vp('AI 이미지', [], [['생성 모델', '<span class="vp-sel">GPT Image 2.6 Sunburst</span>'], ['프롬프트', `<div class="vp-ta">${clamp(P.imgNoTitle, 150)}</div>`], ['참고 이미지', '<span class="vp-empty">비워 둡니다</span>'], ['설정', opt('일반', 'Low', '3:4')]], '이미지 1장 생성', '10 크레딧 (Low · 일반)')}
     <div class="pcard white"><div class="top"><h3>프롬프트는 네 칸으로</h3></div>
       <div class="four one"><span>${T.s1_p1}</span><span>${T.s1_p2}</span><span>${T.s1_p3}</span><span>${T.s1_p4}</span></div>
-      <button class="thumb card" data-i="${i}" style="margin-top:auto"><img src="${A}m06-gpt25.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 30%"><span class="tag">뽑힌 그림</span><span class="zoom">크게 보기</span></button></div>
+      <button class="thumb card" data-i="${i}" style="margin-top:auto"><img src="${A}vh-gpt26-sunburst.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 30%"><span class="tag">뽑힌 그림</span><span class="zoom">크게 보기</span></button></div>
   </div></div>`;
 });
 
-// ── 1단계 ② 같은 프롬프트, 브루 모델 2종
-slide('1단계 ② 같은 프롬프트, 모델 2종', '1단계 주인공', '', () => {
-  const card = (it, name, by, note, use, pick) => plain({ ...it, pick }, 'tall2', `<div class="txt"><div class="name">${name}</div><div class="meta">${by}</div><div class="note">${note}</div><div class="use">→ ${use}</div></div>`);
-  return `${head('1단계 · 주인공 캐릭터', '프롬프트 · 3:4', '모델', pbtn('두 모델에 넣은 프롬프트', P.img))}<h2>같은 프롬프트, <em>브루 모델 2종</em></h2><div class="body"><div class="cmp">
-    ${card(HERO_IT, 'GPT Image 2.5', 'OpenAI · 브루 기본 모델 계열', T.cmp_gpt, '동화책 삽화 기본', 1)}
-    ${card(NANO_IT, 'Nano Banana 2.1', 'Google', T.cmp_nano, '아기자기한 삽화', 0)}
-    <div class="side"><h3>고르는 기준</h3><p>${T.cmp_side1}</p><p>${T.cmp_side2}</p><p>${T.cmp_side3}</p></div>
-  </div>${take(T.cmp_take)}</div>`;
-});
+// ── 1단계 ② 같은 프롬프트, 브루 모델 9종 (두 쪽)
+const heroCard = h => { const i = reg({ kind: 'img', src: `${A}vh-${h.key}.jpg`, name: `어린 왕자 · ${h.name}`, by: `브루 AI 이미지 · ${h.name}`, chips: ['일반 · Low · 3:4', `${h.cr} 크레딧`, '브루에서 직접 생성'], note: h.note, prompt: P.imgNoTitle });
+  return `<button class="card hero ${h.pick ? 'pick' : ''}" data-i="${i}"><div class="media"><img src="${A}vh-${h.key}.jpg" alt="${h.name}로 뽑은 어린 왕자">${h.pick ? '<span class="tag">주인공으로 고름</span>' : ''}<span class="zoom">크게 보기</span></div><div class="txt"><div class="name">${h.name}<span class="cr">${h.cr} 크레딧</span></div><div class="note">${h.note}</div></div></button>`; };
+slide('1단계 ② 같은 프롬프트, 브루 모델 9종 (가)', '1단계 주인공', '', () => `${head('1단계 · 주인공 캐릭터', '프롬프트 · 일반 · Low · 3:4', '모델', pbtn('아홉 모델에 넣은 프롬프트', P.imgNoTitle))}<h2>같은 프롬프트, <em>브루 모델 9종</em> <small>GPT Image 계열</small></h2><div class="body"><div class="heroes n5">${HEROES.slice(0, 5).map(heroCard).join('')}</div>${take(T.cmp_take)}</div>`);
+slide('1단계 ② 같은 프롬프트, 브루 모델 9종 (나)', '1단계 주인공', '', () => `${head('1단계 · 주인공 캐릭터', '프롬프트 · 일반 · Low · 3:4', '모델', pbtn('아홉 모델에 넣은 프롬프트', P.imgNoTitle))}<h2>같은 프롬프트, <em>브루 모델 9종</em> <small>그 밖의 모델</small></h2><div class="body"><div class="heroes n4">${HEROES.slice(5).map(heroCard).join('')}
+    <div class="side"><h3>고르는 기준</h3><p>${T.cmp_side1}</p><p>${T.cmp_side2}</p><p>${T.cmp_side3}</p></div></div>${take(T.cmp_take2)}</div>`);
 
 // ── 1단계 ③ 그림체
 slide('1단계 ③ 그림체 한 줄만 바꾸면', '1단계 주인공', '', () => {
@@ -113,7 +109,7 @@ slide('2단계 ① 만들고 싶은 영상 정하기', '2단계 콘티', '', () 
   return `${head('2단계 · 만들고 싶은 영상', '', '', `<span class="chip on">졸업식 영상 · 콜라주</span>`)}<h2>어떤 영상인지 <em>먼저 적어 둡니다</em></h2><div class="body"><div class="two">
     <div class="box"><h3>기획표</h3><table class="script plan">${tr('누구에게', T.plan_who)}${tr('길이 · 비율', T.plan_len)}${tr('분위기', T.plan_mood)}${tr('줄거리', T.plan_story)}${tr('화면 글자', T.plan_text)}</table></div>
     <div class="box"><h3>실사 위에 그림 한 겹 <small>콜라주</small></h3>
-      <div class="layer3"><button class="thumb card" data-i="${a}"><img src="${A}m06-gpt25.jpg" alt=""><span class="tag dark">주인공 그림</span></button><span class="arrow">+</span>
+      <div class="layer3"><button class="thumb card" data-i="${a}"><img src="${A}vh-gpt26-sunburst.jpg" alt=""><span class="tag dark">주인공 그림</span></button><span class="arrow">+</span>
         <div class="bgcard"><b>실사 배경</b><span>빈 교실 · 열린 창문<br>파란 하늘 · 종이비행기</span></div><span class="arrow">=</span>
         <button class="thumb card pick" data-i="${b}"><img src="${A}cut-1.jpg" alt=""><span class="tag">얹은 한 컷</span></button></div>
       <p class="pp2">${T.plan_col1}</p><p class="pp2">${T.plan_col2}</p></div>
@@ -133,7 +129,7 @@ slide('2단계 ③ 콘티 뽑는 법', '2단계 콘티', '', () => {
   const s = EGG_SHOTS[0];
   return `${head('2단계 · 만들고 싶은 영상', '', '', path('삽입', 'AI 이미지') + copyBtn(s.prompt, '장면 1 프롬프트 복사'))}<h2>주인공 그림을 <em>참고 이미지</em>로 넣습니다</h2><div class="body"><div class="tri">
     <div class="side"><h3>브루에서 이렇게</h3>${todo('bd_do1', 'bd_do2', 'bd_do3', 'bd_do4')}<div class="quote">${T.bd_note}</div></div>
-    ${vp('AI 이미지', [], [['생성 모델', '<span class="vp-sel">GPT Image 2.5 Sunburst</span>'], ['프롬프트', `<div class="vp-ta">${clamp(s.prompt, 170)}</div>`], ['참고 이미지', `<span class="vp-ref"><img src="${A}m06-gpt25.jpg" alt=""></span><span class="vp-hint">1단계 주인공 그림 · 최대 3장</span>`], ['설정', opt('일반', 'Low', '16:9')]], '이미지 1장 생성', '장면마다 한 번, 모두 네 번')}
+    ${vp('AI 이미지', [], [['생성 모델', '<span class="vp-sel">GPT Image 2.5 Sunburst</span>'], ['프롬프트', `<div class="vp-ta">${clamp(s.prompt, 170)}</div>`], ['참고 이미지', `<span class="vp-ref"><img src="${A}vh-gpt26-sunburst.jpg" alt=""></span><span class="vp-hint">1단계 주인공 그림 · 최대 3장</span>`], ['설정', opt('일반', 'Low', '16:9')]], '이미지 1장 생성', '장면마다 한 번, 모두 네 번')}
     <div class="pcard white"><div class="top"><h3>장면 프롬프트의 뼈대</h3></div>
       <div class="four one"><span><b>방식</b> 실사 사진 위에 종이 인형을 얹은 콜라주 한 컷</span><span><b>배경</b> 실제 사진 같은 빈 교실, 열린 창문, 햇살</span><span><b>주인공</b> 첨부한 그림의 주인공을 수채화로 그려 오려 낸 종이 인형</span><span><b>마무리</b> 가로 16:9, 넣지 말 것(글자·로고·사람)</span></div>
       <div class="thumbs4" style="margin-top:auto">${thumbs4()}</div></div>
@@ -238,8 +234,8 @@ slide('브루 AI 모델 한눈에', '정리', '', () => {
   const ir = V_IMG.map(m => `<tr class="${m.pick ? 'pick' : ''} ${m.off ? 'off' : ''}"><td class="nm">${m.pick ? '<span class="dot"></span>' : ''}${m.name}${m.seen ? ok : ''}</td><td class="ds">${m.about}</td><td>${m.ref}</td></tr>`).join('');
   const vr = V_VID.map(m => `<tr class="${m.pick ? 'pick' : ''}"><td class="nm">${m.pick ? '<span class="dot"></span>' : ''}${m.name}${m.seen ? ok : ''}</td><td>${m.len}</td><td>${m.res}</td><td>${m.ref}</td><td>${m.snd}</td><td class="ds">${m.mode}</td></tr>`).join('');
   return `${head('정리', '', '', `<span class="chip">${CHECKED}</span>`)}<h2>브루에서 고를 수 있는 <em>AI 모델</em></h2><div class="body"><div class="two">
-    <div class="box"><h3>AI 이미지 <small>삽입 › AI 이미지 · <a href="${NOTE.image}" target="_blank" rel="noopener">공지 2026. 10. 22.</a></small></h3>
-      <table class="table"><thead><tr><th>모델</th><th>잘 맞는 일</th><th>참고 이미지</th></tr></thead><tbody>${ir}</tbody></table></div>
+    <div class="box"><h3>AI 이미지 <small>삽입 › AI 이미지 · <a href="${NOTE.image}" target="_blank" rel="noopener">공지 2026. 10. 22.</a> · 화면 2026. 11. 23.</small></h3>
+      <table class="table"><thead><tr><th>모델</th><th>잘 맞는 일</th><th>크레딧 (일반 · Low · 3:4)</th></tr></thead><tbody>${ir}</tbody></table></div>
     <div class="box"><h3>AI 비디오 <small>삽입 › AI 비디오 · <a href="${NOTE.video}" target="_blank" rel="noopener">공지 2026. 8. 25.</a></small></h3>
       <table class="table"><thead><tr><th>모델</th><th>길이</th><th>화질</th><th>참고 이미지</th><th>소리</th><th>모드</th></tr></thead><tbody>${vr}</tbody></table></div>
   </div>${take(T.model_take)}</div>`;

@@ -625,3 +625,21 @@ ol.do li::before { content: counter(d); position: absolute; left: 14px; top: 12p
 .soon-foot p { margin: 0; max-width: 920px; text-wrap: balance; color: rgba(255, 255, 255, .72); font-size: 18px; line-height: 30px; }
 .soon-foot .chip.on { background: rgba(20, 161, 200, .18); color: #7FD8F0; border: 1px solid rgba(20, 161, 200, .5); }
 @keyframes soonUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* v9: 같은 프롬프트, 브루 모델 9종 */
+h2 small { font-size: 20px; font-weight: 600; color: var(--text-2); margin-left: 10px; letter-spacing: 0; }
+.heroes { display: grid; gap: 16px; flex: 1; min-height: 0; align-items: start; }
+.heroes.n5 { grid-template-columns: repeat(5, 1fr); }
+.heroes.n4 { grid-template-columns: repeat(4, 1fr) 316px; }
+.heroes .card.hero { display: flex; flex-direction: column; text-align: left; background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.heroes .card.hero.pick { border: 2px solid var(--brand); }
+.heroes .card.hero .media { position: relative; aspect-ratio: 3 / 4; overflow: hidden; background: #101214; }
+.heroes .card.hero .media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.heroes .card.hero .txt { padding: 12px 14px 14px; }
+.heroes .card.hero .name { font-size: 16px; letter-spacing: -0.02em; white-space: nowrap; line-height: 24px; font-weight: 700; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.heroes .card.hero .cr { flex: none; font-size: 12.5px; line-height: 20px; font-weight: 600; color: var(--brand-text); background: var(--tint); border-radius: 999px; padding: 1px 7px; letter-spacing: 0; }
+.heroes .card.hero .note { font-size: 14px; line-height: 21px; color: var(--text-2); margin-top: 6px; }
+.heroes .side { align-self: stretch; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 20px 20px; display: flex; flex-direction: column; gap: 12px; }
+.heroes .side h3 { font-size: 20px; line-height: 28px; font-weight: 700; }
+.heroes .side p { font-size: 15px; line-height: 24px; color: var(--text-2); }
+.heroes .side p b { color: var(--text); font-weight: 600; }
