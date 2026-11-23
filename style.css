@@ -643,3 +643,12 @@ h2 small { font-size: 20px; font-weight: 600; color: var(--text-2); margin-left:
 .heroes .side h3 { font-size: 20px; line-height: 28px; font-weight: 700; }
 .heroes .side p { font-size: 15px; line-height: 24px; color: var(--text-2); }
 .heroes .side p b { color: var(--text); font-weight: 600; }
+
+/* v10: 캐릭터 시트 */
+.sheetrow { display: grid; grid-template-columns: 1fr 440px; gap: 16px; flex: 1; min-height: 0; align-items: start; }
+.sheetl { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.sheetimg { display: block; position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: #fff; }
+.sheetimg img { width: 100%; aspect-ratio: 16 / 7.45; object-fit: cover; object-position: 50% 40%; display: block; }
+.why { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.why p { margin: 0; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; font-size: 14px; line-height: 21px; color: var(--text-2); }
+.why p b { display: block; color: var(--text); font-weight: 700; font-size: 15.5px; margin-bottom: 2px; }

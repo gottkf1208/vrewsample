@@ -93,8 +93,19 @@ slide('1단계 ② 같은 프롬프트, 브루 모델 9종 (가)', '1단계 주�
 slide('1단계 ② 같은 프롬프트, 브루 모델 9종 (나)', '1단계 주인공', '', () => `${head('1단계 · 주인공 캐릭터', '프롬프트 · 일반 · Low · 3:4', '모델', pbtn('아홉 모델에 넣은 프롬프트', P.imgNoTitle))}<h2>같은 프롬프트, <em>브루 모델 9종</em> <small>그 밖의 모델</small></h2><div class="body"><div class="heroes n4">${HEROES.slice(5).map(heroCard).join('')}
     <div class="side"><h3>고르는 기준</h3><p>${T.cmp_side1}</p><p>${T.cmp_side2}</p><p>${T.cmp_side3}</p></div></div>${take(T.cmp_take2)}</div>`);
 
+// ── 1단계 ③ 캐릭터 시트
+slide('1단계 ③ 캐릭터 시트', '1단계 주인공', '', () => {
+  const it = { kind: 'img', src: `${A}vh-sheet.jpg`, name: '어린 왕자 캐릭터 시트', by: '브루 AI 이미지 · GPT Image 2.6 Sunburst', chips: ['참고 이미지 1장', '일반 · Low · 16:9', '10 크레딧', '브루에서 직접 생성'], note: plainText(T.sheet_take), use: '콘티를 그릴 때 참고 이미지로 넣습니다', prompt: P.sheet };
+  const i = reg(it);
+  return `${head('1단계 · 주인공 캐릭터', '', '', path('삽입', 'AI 이미지') + path('참고 이미지') + copyBtn(P.sheet, '프롬프트 복사'))}<h2>고른 그림으로 <em>캐릭터 시트</em>를 만듭니다</h2><div class="body"><div class="sheetrow">
+    <div class="sheetl"><button class="thumb card sheetimg" data-i="${i}"><img src="${A}vh-sheet.jpg" alt="어린 왕자 캐릭터 시트: 정면, 반측면, 옆모습, 뒷모습"><span class="tag">브루에서 뽑은 캐릭터 시트</span><span class="zoom">크게 보기</span></button>
+      <div class="why"><p>${T.sheet_why1}</p><p>${T.sheet_why2}</p><p>${T.sheet_why3}</p></div></div>
+    ${vp('AI 이미지', [], [['생성 모델', '<span class="vp-sel">GPT Image 2.6 Sunburst</span>'], ['프롬프트', `<div class="vp-ta">${clamp(P.sheet, 190)}</div>`], ['참고 이미지', `<span class="vp-ref"><img src="${A}vh-gpt26-sunburst.jpg" alt=""></span><span class="vp-hint">고른 주인공 그림 · 최대 3장</span>`], ['설정', opt('일반', 'Low', '16:9')]], '이미지 1장 생성', '10 크레딧 (Low · 일반)')}
+  </div>${take(T.sheet_take)}</div>`;
+});
+
 // ── 1단계 ③ 그림체
-slide('1단계 ③ 그림체 한 줄만 바꾸면', '1단계 주인공', '', () => {
+slide('1단계 ④ 그림체 한 줄만 바꾸면', '1단계 주인공', '', () => {
   const row = STYLES.map((s, i) => plain({ kind: 'img', src: `${A}s-gpt-${i + 1}.jpg`, name: s[0], by: '그림체 줄만 바꿈', chips: ['세로 3:4'], note: `그림체 줄: ${s[1]}`, prompt: P.style(i) })).join('');
   return `${head('1단계 · 주인공 캐릭터', '장면 · 3:4', '[그림체] 한 줄', pbtn('그림체 줄만 바꾼 프롬프트 (예: 한국 민화)', P.style(5)))}<h2>그림체 <em>한 줄</em>만 바꾸면</h2><div class="body"><div class="styles">
     <div class="labels">${STYLES.map(s => `<span>${s[0]}</span>`).join('')}</div><div class="row">${row}</div>
